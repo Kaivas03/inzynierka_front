@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import React, { useCallback, useEffect } from "react";
 import ReactFlow, {
   MiniMap,
@@ -33,57 +33,25 @@ export function Hypothesis() {
     [setEdges]
   );
 
-  useEffect(() => console.log(nodes), [nodes]);
+  // useEffect(() => console.log(nodes), [nodes]);
 
   return (
-    <Grid container justifyContent={"center"}>
-      <Grid item xs={2}>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Typography>WTF</Typography>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-        <Button>xd</Button>
-      </Grid>
-      <Grid item xs={10}>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-        >
-          <Controls />
-          <MiniMap />
-          <Background />
-        </ReactFlow>
-      </Grid>
+    <Grid
+      item
+      xs={12}
+      sx={{ height: "600px", border: "2px", display: "inline-flex" }}
+    >
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+      >
+        <Controls />
+        <MiniMap />
+        <Background />
+      </ReactFlow>
     </Grid>
   );
 }

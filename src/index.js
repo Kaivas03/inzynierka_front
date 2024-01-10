@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App.js";
+import MainRouteMap from "./control_panel/MainRouteMap";
 import * as serviceWorker from "./serviceWorker.js";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -11,7 +11,7 @@ ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <MainRouteMap />
       </Provider>
     </React.StrictMode>
   </BrowserRouter>,
