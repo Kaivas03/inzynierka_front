@@ -11,11 +11,11 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 
 const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
-  { id: "3", position: { x: 0, y: 200 }, data: { label: "3" } },
-  { id: "4", position: { x: 0, y: 300 }, data: { label: "4" } },
-  { id: "5", position: { x: 0, y: 400 }, data: { label: "5" } },
+  { id: "1", position: { x: 400, y: 0 }, data: { label: "1" } },
+  { id: "2", position: { x: 400, y: 100 }, data: { label: "2" } },
+  { id: "3", position: { x: 400, y: 200 }, data: { label: "3" } },
+  { id: "4", position: { x: 400, y: 300 }, data: { label: "4" } },
+  { id: "5", position: { x: 400, y: 400 }, data: { label: "5" } },
 ];
 const initialEdges = [
   { id: "1", source: "1", target: "2" },
@@ -39,7 +39,9 @@ export function Hypothesis() {
     <Grid
       item
       xs={12}
-      sx={{ height: "600px", border: "2px", display: "inline-flex" }}
+      sx={{
+        height: 600,
+      }}
     >
       <ReactFlow
         nodes={nodes}

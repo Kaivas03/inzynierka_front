@@ -1,11 +1,14 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import hypothesisReducer from "./hypothesis/hypothesisSlice";
+import projectsReducer from "./projects/projectsSlice";
 
 export const store = configureStore({
-    reducer: {
-
-    }
-})
+  reducer: {
+    hypothesisReducer: hypothesisReducer,
+    projectsReducer: projectsReducer,
+  },
+});
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

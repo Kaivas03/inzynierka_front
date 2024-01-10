@@ -1,17 +1,15 @@
-import { Link } from "react-router-dom";
-import { Button, Grid } from "@mui/material";
+import { AppBar, Button, Grid } from "@mui/material";
 
 export default function SimpleTab() {
   return (
-    <Grid item>
-      <Link to="/">
-        <Button>Powrót</Button>
-      </Link>
-      <Button>Różne</Button>
-      <Button>żne</Button>
-      <Button>Przy</Button>
-      <Button>cis</Button>
-      <Button>ki</Button>
-    </Grid>
+    <AppBar position="sticky">
+      <Grid item>
+        <Button variant="contained">Ró</Button>
+        <Button variant="contained">żne</Button>
+        <Button variant="contained">Przy</Button>
+        <Button variant="contained">cis</Button>
+        <Button variant="contained">ki</Button>
+      </Grid>
+    </AppBar>
   );
 }

@@ -7,10 +7,10 @@ import ControlPanel from "./ControlPanel";
 export default function MainRouteMap() {
   return (
     <Grid container>
-      <Grid container xs={2}>
+      <Grid xs={1}>
         <ControlPanel />
       </Grid>
-      <Grid container xs={10}>
+      <Grid container xs={11}>
         <Grid container>
           <SimpleTab />
         </Grid>
