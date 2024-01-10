@@ -1,12 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import { Hypothesis } from "./hypothesis/Hypothesis.tsx";
+import { Hypothesis } from "./hypothesis/Hypothesis";
 
 export default function App() {
   return (
     <Routes>
-      <Route path={`/hypothesis`}>
-        <Hypothesis />
-      </Route>
+      <Route path={`/hypothesis`} element={<Hypothesis />} />
     </Routes>
   );
 }
