@@ -1,12 +1,16 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import hypothesisReducer from "./hypothesis/hypothesisSlice";
+import hypothesisReducer from "./mind_map/hypothesisSlice";
 import projectsReducer from "./projects/projectsSlice";
+import errorReducer from "./common/errors/errorSlice";
+import notyficationsReducer from "./common/notifycations/notifycationsSlice";
 
 export const store = configureStore({
   reducer: {
     hypothesisReducer: hypothesisReducer,
     projectsReducer: projectsReducer,
+    errorReducer: errorReducer,
+    notyficationsReducer: notyficationsReducer,
   },
 });
 

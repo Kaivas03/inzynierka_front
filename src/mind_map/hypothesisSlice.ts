@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { HypothesisItem } from "./hypothesisTypes";
 
 type HypothesisState = {
-  firstNotClosedIndex: number;
+  hypothsesisList: HypothesisItem[];
   yearFetchInProgress: boolean;
 };
 
 const initialState: HypothesisState = {
-  firstNotClosedIndex: -1,
+  hypothsesisList: [],
   yearFetchInProgress: false,
 };
 
@@ -17,12 +18,9 @@ const hypothesisSlice = createSlice({
     yearsFetchStart: (state) => {
       state.yearFetchInProgress = true;
     },
-    yearFetchComplete: (state, action: PayloadAction<number>) => {
-      state.firstNotClosedIndex = action.payload;
-    },
   },
 });
 
-const { yearsFetchStart, yearFetchComplete } = hypothesisSlice.actions;
+const { yearsFetchStart } = hypothesisSlice.actions;
 
 export default hypothesisSlice.reducer;
