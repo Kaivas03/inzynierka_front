@@ -1,8 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Project } from "./projectsTypes";
 import { AppThunk } from "../store";
-import { createUrl, fetchW, getRequestTemplate } from "../utils/fetchUtils";
-import { notifyError } from "../common/notifycations/notifycationsSlice";
+import {
+  createPostRequest,
+  createUrl,
+  deleteRequestTemplate,
+  fetchW,
+  getRequestTemplate,
+} from "../utils/fetchUtils";
+import {
+  notifyError,
+  notifySuccess,
+} from "../common/notifycations/notifycationsSlice";
 
 type ProjectsState = {
   currentProjectId: number | undefined;
@@ -40,5 +49,40 @@ export const fetchProjects = (): AppThunk => async (dispatch) => {
     dispatch(notifyError("Błąd podczas pobierania projektów."));
   }
 };
+
+export const createProject =
+  (
+    projectName: string | null,
+    projectDescription: string | null,
+    dialogClose: () => void
+  ): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl("/project/");
+    const response = await fetchW(
+      url,
+      createPostRequest({ name: projectName, description: projectDescription }),
+      dispatch
+    );
+    if (response.ok) {
+      dispatch(fetchProjects());
+      dialogClose();
+    } else {
+      dispatch(notifyError("Podano złe dane projektu"));
+      dialogClose();
+    }
+  };
+
+export const deleteProject =
+  (projectId: number): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/project/${projectId}`);
+    const response = await fetchW(url, deleteRequestTemplate, dispatch);
+    if (response.ok) {
+      dispatch(fetchProjects());
+      dispatch(notifySuccess("Usunięto projekt id: " + projectId));
+    } else {
+      dispatch(notifyError("Nie udało się usunąć projektu"));
+    }
+  };
 
 export default projectsSlice.reducer;

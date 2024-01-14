@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import SimpleTab from "./SimpleTab";
 import ControlPanel from "./ControlPanel";
 import { ProjectsList } from "../projects/ProjectsList";
+import SimpleTabProject from "./SimpleTabProject";
 
 export default function MainRouteMap() {
   return (
@@ -13,7 +14,10 @@ export default function MainRouteMap() {
       </Grid>
       <Grid item xs={12} marginLeft={20}>
         <Grid container>
-          <SimpleTab />
+          <Routes>
+            <Route path={`/`} element={<SimpleTabProject />} />
+            <Route path={`/hypothesis`} element={<SimpleTab />} />
+          </Routes>
         </Grid>
         <Grid container>
           <Routes>

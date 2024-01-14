@@ -11,12 +11,15 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import NodeContent from "./NodeContent";
+import { useAppDispatch } from "../store";
+import { fetchHypothesisList } from "./hypothesisSlice";
 
 const initialNodes = [
   {
     id: "1",
+    type: "hipoteza",
     position: { x: 400, y: 0 },
-    data: { label: <NodeContent id="1" /> },
+    data: { label: <NodeContent id="Czy miś uszatek bił się na pięści?" /> },
   },
   {
     id: "2",
@@ -55,12 +58,15 @@ const getIdEdge = () => `${idEdge++}`;
 export function Hypothesis() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const dispatch = useAppDispatch();
   const onConnect: OnConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
-  useEffect(() => console.log(edges), [edges]);
+  useEffect(() => {
+    dispatch(fetchHypothesisList());
+  }, [dispatch]);
 
   return (
     <Grid

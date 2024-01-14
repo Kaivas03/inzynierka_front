@@ -1,9 +1,9 @@
 import { AppBar, Button, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import SaveIcon from "@mui/icons-material/Save";
 import { useState } from "react";
+import ProjectDialog from "../projects/ProjectDialog";
 
-export default function SimpleTab() {
+export default function SimpleTabProject() {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -18,24 +18,15 @@ export default function SimpleTab() {
     <AppBar position="sticky" color="default">
       <Grid container spacing={1}>
         <Grid item margin={1}>
-          <Button variant="contained" startIcon={<AddIcon />} size="small">
-            Dodaj Hipotezę
-          </Button>
-        </Grid>
-        <Grid item margin={1}>
           <Button
             variant="contained"
-            startIcon={<SaveIcon />}
+            startIcon={<AddIcon />}
             size="small"
-            disabled
+            onClick={handleClickOpen}
           >
-            Zapisz pozycję
+            Dodaj Projekt
           </Button>
-        </Grid>
-        <Grid item margin={1}>
-          <Button variant="contained" size="small">
-            wybierz
-          </Button>
+          <ProjectDialog open={open} onClose={handleClose} />
         </Grid>
       </Grid>
     </AppBar>

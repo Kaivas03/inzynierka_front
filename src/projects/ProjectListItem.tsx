@@ -3,30 +3,42 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { useAppDispatch } from "../store";
-import { setCurrentProjectId } from "./projectsSlice";
+import { deleteProject, setCurrentProjectId } from "./projectsSlice";
 import { Link } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Project } from "./projectsTypes";
 
-interface ProjectProps {
-  id: number;
-  name: string;
-}
-
-export default function ProjectListItem(props: ProjectProps) {
+export default function ProjectListItem(props: { project: Project }) {
   const dispatch = useAppDispatch();
 
   return (
     <Card>
+      <CardHeader
+        title={
+          <Typography variant="subtitle1">{props.project.name}</Typography>
+        }
+        action={
+          <IconButton onClick={() => dispatch(deleteProject(props.project.id))}>
+            <DeleteIcon />
+          </IconButton>
+        }
+      />
       <CardContent>
-        <Typography variant="subtitle1">{props.name}</Typography>
+        <Typography variant="subtitle2">
+          {props.project?.description}
+        </Typography>
       </CardContent>
       <CardActions>
         <Link to="/intervievs">
           <Button
             variant="outlined"
-            onClick={() => dispatch(setCurrentProjectId(props.id))}
+            onClick={() => dispatch(setCurrentProjectId(props.project.id))}
           >
             Przejdź do projektu :D
           </Button>

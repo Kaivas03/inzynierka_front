@@ -18,7 +18,7 @@ export function ProjectsList() {
       <Grid container spacing={1} sx={{ marginTop: "1rem" }}>
         {projectsList.map((project: Project) => (
           <Grid item xs={6} sm={4} md={3}>
-            <ProjectListItem id={project.id} name={project.name} />
+            <ProjectListItem project={project} />
           </Grid>
         ))}
       </Grid>
