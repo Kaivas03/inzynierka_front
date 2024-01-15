@@ -15,7 +15,7 @@ import { setCurrentHypothesisId } from "../mind_map/hypothesisSlice";
 import { HypothesisItem } from "../mind_map/hypothesisTypes";
 import { updatePositions } from "../mind_map/ReactFlow/store";
 
-export default function SimpleTab() {
+export default function MindMapBar() {
   const [openn, setOpenn] = useState(false);
   const { nodesMoved, hypothsesisList } = useAppSelector(
     (state) => state.hypothesisReducer

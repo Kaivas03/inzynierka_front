@@ -5,7 +5,7 @@ import { fetchHypothesisList } from "./hypothesisSlice";
 import { Position, SokNode } from "./hypothesisTypes";
 import { MindMap } from "./ReactFlow/MindMap";
 import { ReactFlowProvider } from "reactflow";
-import { fetchMindMap } from "./ReactFlow/store";
+import { fetchMindMap, makeNodePackageEmpty } from "./ReactFlow/store";
 
 export interface CoolNode {
   id: string;
@@ -26,6 +26,9 @@ export function Hypothesis() {
 
   useEffect(() => {
     currentHypothesisId && dispatch(fetchMindMap());
+    if (currentHypothesisId === undefined) {
+      dispatch(makeNodePackageEmpty());
+    }
     // eslint-disable-next-line
   }, [dispatch, currentHypothesisId]);
 

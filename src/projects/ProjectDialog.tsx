@@ -4,6 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   TextField,
 } from "@mui/material";
 import { createProject } from "./projectsSlice";
@@ -28,16 +29,20 @@ export default function ProjectDialog(props: Props) {
     <Dialog open={props.open}>
       <DialogTitle>Dodaj nowy projekt</DialogTitle>
       <DialogContent>
-        <TextField
-          label="Nazwa projektu..."
-          variant="standard"
-          onChange={(e) => setProjectName(e.target.value)}
-        />
-        <TextField
-          label="Opis projektu..."
-          variant="standard"
-          onChange={(e) => setProjectDescrition(e.target.value)}
-        />
+        <Grid>
+          <TextField
+            label="Nazwa projektu..."
+            variant="standard"
+            onChange={(e) => setProjectName(e.target.value)}
+          />
+        </Grid>
+        <Grid marginTop={2}>
+          <TextField
+            label="Opis projektu..."
+            variant="standard"
+            onChange={(e) => setProjectDescrition(e.target.value)}
+          />
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>

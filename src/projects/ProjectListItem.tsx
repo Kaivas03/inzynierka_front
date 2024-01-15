@@ -34,7 +34,7 @@ export default function ProjectListItem(props: { project: Project }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to="/hypothesis">
+        <Link to="/mind-map">
           <Button
             variant="outlined"
             onClick={() => dispatch(setCurrentProjectId(props.project.id))}

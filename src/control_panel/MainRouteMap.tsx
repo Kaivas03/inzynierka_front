@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { Hypothesis } from "../mind_map/Hypothesis";
 import { Grid } from "@mui/material";
-import SimpleTab from "./SimpleTab";
+import MindMapBar from "./MindMapBar";
 import ControlPanel from "./ControlPanel";
 import { ProjectsList } from "../projects/ProjectsList";
-import SimpleTabProject from "./SimpleTabProject";
+import SimpleTabProject from "../projects/ProjectBar";
 
 export default function MainRouteMap() {
   return (
@@ -16,13 +16,13 @@ export default function MainRouteMap() {
         <Grid container>
           <Routes>
             <Route path={`/`} element={<SimpleTabProject />} />
-            <Route path={`/hypothesis`} element={<SimpleTab />} />
+            <Route path={`/mind-map`} element={<MindMapBar />} />
           </Routes>
         </Grid>
         <Grid container>
           <Routes>
             <Route path={`/`} element={<ProjectsList />} />
-            <Route path={`/hypothesis`} element={<Hypothesis />} />
+            <Route path={`/mind-map`} element={<Hypothesis />} />
           </Routes>
         </Grid>
       </Grid>

@@ -44,7 +44,7 @@ export default function ControlPanel() {
             </Grid>
             <Divider />
             <Grid item margin={1}>
-              <Link to="/hypothesis">
+              <Link to="/mind-map">
                 <Button variant="outlined">Hipotezy</Button>
               </Link>
             </Grid>

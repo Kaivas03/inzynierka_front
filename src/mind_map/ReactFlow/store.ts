@@ -47,13 +47,17 @@ const mindMapSlice = createSlice({
     setNodePackage: (state, action: PayloadAction<RFState>) => {
       state.nodes = action.payload.nodes;
       state.edges = action.payload.edges;
-      console.log(state.nodes);
+    },
+    makeNodePackageEmpty: (state) => {
+      state.nodes = [];
+      state.edges = [];
     },
   },
 });
 
 const { setNodePackage } = mindMapSlice.actions;
-export const { setNodes, setEdges } = mindMapSlice.actions;
+export const { setNodes, setEdges, makeNodePackageEmpty } =
+  mindMapSlice.actions;
 
 export const addChildNode =
   (id: string, text: string, position: XYPosition): AppThunk =>

@@ -1,7 +1,7 @@
 import { AppBar, Button, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import ProjectDialog from "../projects/ProjectDialog";
+import ProjectDialog from "./ProjectDialog";
 
 export default function SimpleTabProject() {
   const [open, setOpen] = useState(false);
