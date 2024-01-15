@@ -3,9 +3,7 @@ import {
   Button,
   FormControl,
   Grid,
-  InputLabel,
   MenuItem,
-  Select,
   TextField,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -15,10 +13,11 @@ import HypothesisDialog from "../mind_map/HypothesisDialog";
 import { useAppDispatch, useAppSelector } from "../store";
 import { setCurrentHypothesisId } from "../mind_map/hypothesisSlice";
 import { HypothesisItem } from "../mind_map/hypothesisTypes";
+import { updatePositions } from "../mind_map/ReactFlow/store";
 
 export default function SimpleTab() {
   const [openn, setOpenn] = useState(false);
-  const { currentHypothesisId, hypothsesisList } = useAppSelector(
+  const { nodesMoved, hypothsesisList } = useAppSelector(
     (state) => state.hypothesisReducer
   );
   const dispatch = useAppDispatch();
@@ -50,7 +49,8 @@ export default function SimpleTab() {
             variant="contained"
             startIcon={<SaveIcon />}
             size="small"
-            disabled
+            disabled={!nodesMoved}
+            onClick={() => dispatch(updatePositions())}
           >
             Zapisz pozycję
           </Button>
@@ -65,7 +65,7 @@ export default function SimpleTab() {
               }
               fullWidth
             >
-              <MenuItem value={undefined}>-</MenuItem>
+              {/* <MenuItem value={undefined}>-</MenuItem> */}
               {hypothsesisList?.map((hypothesis: HypothesisItem, index) => (
                 <MenuItem key={index} value={hypothesis.id}>
                   {hypothesis.text}

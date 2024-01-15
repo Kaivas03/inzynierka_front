@@ -18,7 +18,7 @@ export default function ControlPanel() {
               onClick={() => dispatch(setCurrentProjectId(undefined))}
               variant="outlined"
             >
-              Projekty
+              Badania
             </Button>
           </Link>
         </Grid>

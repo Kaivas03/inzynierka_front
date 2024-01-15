@@ -1,6 +1,6 @@
 import { CreationSignature, EditionSignature } from "../common/commonTypes";
 
-type Position = {
+export type Position = {
   x: number;
   y: number;
 };
@@ -8,18 +8,25 @@ type Position = {
 export interface HypothesisItem {
   id: number;
   text: string;
+  questionId: number;
   creationSignature: CreationSignature;
   editionSignature: EditionSignature;
 }
 
+export interface QuestionRequest {
+  posX: number;
+  posY: number;
+  text: string;
+}
+
 export interface SokNode {
-  id: number;
+  id: string;
   position: Position;
-  data: { label: Element };
+  text: string;
 }
 
 export interface SokEdge {
   id: string;
-  source: number;
-  target: number;
+  source: string;
+  target: string;
 }

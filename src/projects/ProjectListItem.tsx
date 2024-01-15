@@ -34,12 +34,12 @@ export default function ProjectListItem(props: { project: Project }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to="/intervievs">
+        <Link to="/hypothesis">
           <Button
             variant="outlined"
             onClick={() => dispatch(setCurrentProjectId(props.project.id))}
           >
-            Przejdź do projektu :D
+            Przejdź do badania
           </Button>
         </Link>
       </CardActions>
