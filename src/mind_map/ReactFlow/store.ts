@@ -138,7 +138,7 @@ export const deleteQuestion =
       dispatch(fetchMindMap());
       dispatch(notifySuccess("Usunięto pytanie o id: " + id));
     } else {
-      dispatch(notifyError("Nie udało się usunąć hipotezy"));
+      dispatch(notifyError("Nie udało się usunąć pytania"));
     }
   };
 

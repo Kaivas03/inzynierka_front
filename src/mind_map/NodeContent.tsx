@@ -2,7 +2,7 @@ import { Grid, IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch } from "../store";
 import { deleteQuestion } from "./ReactFlow/store";
 import { useState } from "react";
 import QuestionDialog from "./questions/QuestionDialog";
@@ -15,9 +15,6 @@ type NodeData = {
 };
 
 export default function NodeContent(props: NodeData) {
-  const { currentHypothesisId } = useAppSelector(
-    (store) => store.hypothesisReducer
-  );
   const dispatch = useAppDispatch();
   const [opened, setOpened] = useState(false);
 

@@ -75,7 +75,7 @@ export const deleteProject =
       dispatch(fetchProjects());
       dispatch(notifySuccess("Usunięto projekt id: " + projectId));
     } else {
-      dispatch(notifyError("Nie udało się usunąć projektu"));
+      dispatch(notifyError("Nie udało się usunąć badania"));
     }
   };
 

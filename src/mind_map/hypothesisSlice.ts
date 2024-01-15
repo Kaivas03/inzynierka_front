@@ -52,7 +52,7 @@ const hypothesisSlice = createSlice({
   },
 });
 
-const { setHypothesisList, setNodePackage } = hypothesisSlice.actions;
+const { setHypothesisList } = hypothesisSlice.actions;
 export const { setCurrentHypothesisId, setNodeMoved } = hypothesisSlice.actions;
 
 export const createHypothesis =

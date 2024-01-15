@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "reactflow/dist/style.css";
 import { useAppDispatch, useAppSelector } from "../store";
 import { fetchHypothesisList } from "./hypothesisSlice";
-import { Position, SokNode } from "./hypothesisTypes";
+import { Position } from "./hypothesisTypes";
 import { MindMap } from "./ReactFlow/MindMap";
 import { ReactFlowProvider } from "reactflow";
 import { fetchMindMap, makeNodePackageEmpty } from "./ReactFlow/store";
@@ -16,7 +16,7 @@ export interface CoolNode {
 export function Hypothesis() {
   const dispatch = useAppDispatch();
   const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
-  const { currentHypothesisId, nodePackage } = useAppSelector(
+  const { currentHypothesisId } = useAppSelector(
     (state) => state.hypothesisReducer
   );
 

@@ -37,6 +37,7 @@ export function MindMap() {
 
   useEffect(() => {
     dispatch(setNodeMoved(true));
+    // eslint-disable-next-line
   }, [nodes]);
 
   return (
