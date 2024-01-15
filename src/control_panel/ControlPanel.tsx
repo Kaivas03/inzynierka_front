@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
-import { Button, Divider, Drawer, Grid } from "@mui/material";
+import {
+  Button,
+  Divider,
+  Drawer,
+  Grid,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store";
 import { setCurrentProjectId } from "../projects/projectsSlice";
-
-export const drawerWidth = 240;
+import HomeIcon from "@mui/icons-material/Home";
 
 export default function ControlPanel() {
   const dispatch = useAppDispatch();
@@ -11,46 +21,50 @@ export default function ControlPanel() {
 
   return (
     <Drawer variant="permanent" anchor="left" sx={{ minWidth: 20 }}>
-      <Grid container direction={"column"}>
-        <Grid item margin={1}>
-          <Link to="/">
-            <Button
-              onClick={() => dispatch(setCurrentProjectId(undefined))}
-              variant="outlined"
-            >
-              Badania
-            </Button>
+      <Paper sx={{ width: "240px", maxWidth: "100%" }}>
+        <MenuList>
+          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+            <MenuItem onClick={() => dispatch(setCurrentProjectId(undefined))}>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText>Badania</ListItemText>
+            </MenuItem>
           </Link>
-        </Grid>
+        </MenuList>
         {currentProjectId && (
-          <Grid container direction={"column"}>
+          <MenuList>
             <Divider />
-            <Grid item margin={1}>
-              <Link to="/intervievs">
-                <Button variant="outlined">Wywiady</Button>
-              </Link>
-            </Grid>
+            <Link
+              to={"/interview"}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <MenuItem>Wywiady</MenuItem>
+            </Link>
             <Divider />
-            <Grid item margin={1}>
-              <Link to="/codes">
-                <Button variant="outlined">Kody</Button>
-              </Link>
-            </Grid>
+            <Link
+              to={"/codes"}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <MenuItem>Kody</MenuItem>
+            </Link>
             <Divider />
-            <Grid item margin={1}>
-              <Link to="/code-groups">
-                <Button variant="outlined">Grupy kodów</Button>
-              </Link>
-            </Grid>
+            <Link
+              to={"/code-groups"}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <MenuItem>Grupy kodów</MenuItem>
+            </Link>
             <Divider />
-            <Grid item margin={1}>
-              <Link to="/mind-map">
-                <Button variant="outlined">Hipotezy</Button>
-              </Link>
-            </Grid>
-          </Grid>
+            <Link
+              to={"/mind-map"}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <MenuItem>Hipotezy</MenuItem>
+            </Link>
+          </MenuList>
         )}
-      </Grid>
+      </Paper>
     </Drawer>
   );
 }

@@ -27,18 +27,18 @@ export default function ProjectDialog(props: Props) {
 
   return (
     <Dialog open={props.open}>
-      <DialogTitle>Dodaj nowy projekt</DialogTitle>
+      <DialogTitle>Dodaj nowe badanie</DialogTitle>
       <DialogContent>
         <Grid>
           <TextField
-            label="Nazwa projektu..."
+            label="Nazwa badania..."
             variant="standard"
             onChange={(e) => setProjectName(e.target.value)}
           />
         </Grid>
         <Grid marginTop={2}>
           <TextField
-            label="Opis projektu..."
+            label="Opis badania..."
             variant="standard"
             onChange={(e) => setProjectDescrition(e.target.value)}
           />

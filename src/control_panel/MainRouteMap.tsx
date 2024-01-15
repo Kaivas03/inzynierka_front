@@ -12,7 +12,7 @@ export default function MainRouteMap() {
       <Grid item minWidth={20}>
         <ControlPanel />
       </Grid>
-      <Grid item xs={12} marginLeft={20}>
+      <Grid item xs={12} marginLeft={"240px"}>
         <Grid container>
           <Routes>
             <Route path={`/`} element={<SimpleTabProject />} />

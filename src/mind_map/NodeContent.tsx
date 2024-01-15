@@ -30,7 +30,7 @@ export default function NodeContent(props: NodeData) {
   };
 
   return (
-    <Grid sx={{ border: 1, borderRadius: "12px" }}>
+    <Grid sx={{ border: 1, borderRadius: "12px", backgroundColor: "white" }}>
       <Grid margin={1} container direction={"column"}>
         <Grid container direction={"row"} spacing={1}>
           <Grid>
