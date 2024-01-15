@@ -20,7 +20,7 @@ export default function ProjectDialog(props: Props) {
   const [projectName, setProjectName] = useState<string | null>("");
   const [projectDescrition, setProjectDescrition] = useState<string | null>("");
   const newProject = () => {
-    dispatch(createProject(projectName, projectDescrition, props.onClose));
+    dispatch(createProject(projectName, projectDescrition));
     props.onClose();
   };
 

@@ -17,25 +17,25 @@ type Props = {
 
 export default function HypothesisDialog(props: Props) {
   const dispatch = useAppDispatch();
-  const [hypothesisName, setHypothesisName] = useState<string | null>("");
-  const newProject = () => {
-    dispatch(createHypothesis(hypothesisName, props.onClose));
+  const [hypothesisText, setHypothesisText] = useState<string | null>("");
+  const newHypothesis = () => {
+    dispatch(createHypothesis(hypothesisText));
     props.onClose();
   };
 
   return (
     <Dialog open={props.open}>
-      <DialogTitle>Dodaj nowy projekt</DialogTitle>
+      <DialogTitle>Dodaj nową hipotezę</DialogTitle>
       <DialogContent>
         <TextField
-          label="Nazwa projektu..."
+          label="Treść hipotezy..."
           variant="standard"
-          onChange={(e) => setHypothesisName(e.target.value)}
+          onChange={(e) => setHypothesisText(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>
-        <Button onClick={newProject}>Utwórz</Button>
+        <Button onClick={newHypothesis}>Utwórz</Button>
       </DialogActions>
     </Dialog>
   );

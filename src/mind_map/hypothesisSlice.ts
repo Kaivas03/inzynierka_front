@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HypothesisItem } from "./hypothesisTypes";
-import { AppThunk, useAppSelector } from "../store";
+import { AppThunk } from "../store";
 import {
   createPostRequest,
   createUrl,
   fetchW,
   getRequestTemplate,
 } from "../utils/fetchUtils";
-import { notifyError } from "../common/notifycations/notifycationsSlice";
+import {
+  notifyError,
+  notifySuccess,
+} from "../common/notifycations/notifycationsSlice";
 
 type HypothesisState = {
   hypothsesisList: HypothesisItem[];
@@ -28,7 +31,7 @@ const hypothesisSlice = createSlice({
     setNodeMoved: (state, action: PayloadAction<boolean>) => {
       state.nodesMoved = action.payload;
     },
-    setHypothsesisList: (state, action: PayloadAction<HypothesisItem[]>) => {
+    setHypothesisList: (state, action: PayloadAction<HypothesisItem[]>) => {
       state.hypothsesisList = action.payload;
     },
     setCurrentHypothesisId: (
@@ -36,17 +39,19 @@ const hypothesisSlice = createSlice({
       action: PayloadAction<number | undefined>
     ) => {
       state.currentHypothesisId = action.payload;
+      console.log(state.currentHypothesisId);
     },
   },
 });
 
-const { setHypothsesisList } = hypothesisSlice.actions;
+const { setHypothesisList } = hypothesisSlice.actions;
 export const { setCurrentHypothesisId, setNodeMoved } = hypothesisSlice.actions;
 
 export const createHypothesis =
-  (hypothesisText: string | null, dialogClose: () => void): AppThunk =>
-  async (dispatch) => {
-    const url = createUrl("/project/");
+  (hypothesisText: string | null): AppThunk =>
+  async (dispatch, getState) => {
+    const projectId = getState().projectsReducer.currentProjectId;
+    const url = createUrl(`/hypothesis/${projectId}`);
     const response = await fetchW(
       url,
       createPostRequest({ text: hypothesisText }),
@@ -54,23 +59,23 @@ export const createHypothesis =
     );
     if (response.ok) {
       dispatch(fetchHypothesisList());
-      dialogClose();
+      dispatch(notifySuccess("Dodano nową hipotezę!"));
     } else {
-      dispatch(notifyError("Podano złe dane projektu"));
-      dialogClose();
+      dispatch(notifyError("Podano złe dane hipotezy"));
     }
   };
 
-export const fetchHypothesisList = (): AppThunk => async (dispatch) => {
-  const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
-  const url = createUrl(`/hypothesis/${currentProjectId}`);
-  const response = await fetchW(url, getRequestTemplate, dispatch);
-  if (response.ok) {
-    dispatch(setHypothsesisList(await response.json()));
-  } else {
-    dispatch(setHypothsesisList([]));
-    dispatch(notifyError("Błąd podczas pobierania hipotez."));
-  }
-};
+export const fetchHypothesisList =
+  (): AppThunk => async (dispatch, getState) => {
+    const projectId = getState().projectsReducer.currentProjectId;
+    const url = createUrl(`/hypothesis/all/${projectId}`);
+    const response = await fetchW(url, getRequestTemplate, dispatch);
+    if (response.ok) {
+      dispatch(setHypothesisList(await response.json()));
+    } else {
+      dispatch(setHypothesisList([]));
+      dispatch(notifyError("Błąd podczas pobierania hipotez."));
+    }
+  };
 
 export default hypothesisSlice.reducer;

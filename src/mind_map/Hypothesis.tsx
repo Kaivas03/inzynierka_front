@@ -17,28 +17,28 @@ import { fetchHypothesisList } from "./hypothesisSlice";
 const initialNodes = [
   {
     id: "1",
-    type: "hipoteza",
+    // type: "hipoteza",
     position: { x: 400, y: 0 },
     data: { label: <NodeContent id="Czy miś uszatek bił się na pięści?" /> },
   },
   {
     id: "2",
-    position: { x: 400, y: 100 },
+    position: { x: 100, y: 300 },
     data: { label: <NodeContent id="2" /> },
   },
   {
     id: "3",
-    position: { x: 400, y: 200 },
+    position: { x: 300, y: 300 },
     data: { label: <NodeContent id="3" /> },
   },
   {
     id: "4",
-    position: { x: 400, y: 300 },
+    position: { x: 500, y: 300 },
     data: { label: <NodeContent id="4" /> },
   },
   {
     id: "5",
-    position: { x: 400, y: 400 },
+    position: { x: 700, y: 300 },
     data: { label: <NodeContent id="5" /> },
   },
 ];
@@ -49,16 +49,12 @@ const initialEdges = [
   { id: "4", source: "1", target: "5" },
 ];
 
-let idNode = 5;
-const getIdNode = () => `${idNode++}`;
-
-let idEdge = 5;
-const getIdEdge = () => `${idEdge++}`;
-
 export function Hypothesis() {
+  // eslint-disable-next-line
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const dispatch = useAppDispatch();
+
   const onConnect: OnConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]

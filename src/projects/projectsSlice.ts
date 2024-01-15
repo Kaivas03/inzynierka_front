@@ -40,7 +40,7 @@ export const { setCurrentProjectId } = projectsSlice.actions;
 const { setProjectsList } = projectsSlice.actions;
 
 export const fetchProjects = (): AppThunk => async (dispatch) => {
-  const url = createUrl("/project/");
+  const url = createUrl(`/project/`);
   const response = await fetchW(url, getRequestTemplate, dispatch);
   if (response.ok) {
     dispatch(setProjectsList(await response.json()));
@@ -51,11 +51,7 @@ export const fetchProjects = (): AppThunk => async (dispatch) => {
 };
 
 export const createProject =
-  (
-    projectName: string | null,
-    projectDescription: string | null,
-    dialogClose: () => void
-  ): AppThunk =>
+  (projectName: string | null, projectDescription: string | null): AppThunk =>
   async (dispatch) => {
     const url = createUrl("/project/");
     const response = await fetchW(
@@ -65,10 +61,8 @@ export const createProject =
     );
     if (response.ok) {
       dispatch(fetchProjects());
-      dialogClose();
     } else {
       dispatch(notifyError("Podano złe dane projektu"));
-      dialogClose();
     }
   };
 

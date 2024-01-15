@@ -4,6 +4,7 @@ import hypothesisReducer from "./mind_map/hypothesisSlice";
 import projectsReducer from "./projects/projectsSlice";
 import errorReducer from "./common/errors/errorSlice";
 import notyficationsReducer from "./common/notifycations/notifycationsSlice";
+import interviewReducer from "./interviews/interviewsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     projectsReducer: projectsReducer,
     errorReducer: errorReducer,
     notyficationsReducer: notyficationsReducer,
+    interviewReducer: interviewReducer,
   },
 });
 
