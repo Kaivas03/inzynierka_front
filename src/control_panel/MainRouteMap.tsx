@@ -12,6 +12,8 @@ import CurrentInterviewBar from "../interviews/CurrentInterviewBar";
 import Interview from "../interviews/Interview";
 import { CodeGroupTable } from "../code_groups/CodeGroupTable";
 import CodeGroupBar from "../code_groups/CodeGroupBar";
+import CodeBar from "../codes/CodesBar";
+import { CodeTable } from "../codes/CodesTable";
 
 export default function MainRouteMap() {
   const { currentInterviewId } = useAppSelector(
@@ -33,6 +35,7 @@ export default function MainRouteMap() {
                 currentInterviewId ? <CurrentInterviewBar /> : <InterviewBar />
               }
             />
+            <Route path={`/codes`} element={<CodeBar />} />
             <Route path={`/code-groups`} element={<CodeGroupBar />} />
             <Route path={`/mind-map`} element={<MindMapBar />} />
           </Routes>
@@ -44,6 +47,7 @@ export default function MainRouteMap() {
               path={`/interview`}
               element={currentInterviewId ? <Interview /> : <InterviewTable />}
             />
+            <Route path={`/codes`} element={<CodeTable />} />
             <Route path={`/code-groups`} element={<CodeGroupTable />} />
             <Route path={`/mind-map`} element={<Hypothesis />} />
           </Routes>

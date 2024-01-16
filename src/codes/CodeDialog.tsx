@@ -9,19 +9,18 @@ import {
 } from "@mui/material";
 import { useAppDispatch } from "../store";
 import { useState } from "react";
-import { createInterview } from "./interviewsSlice";
+import { createCode } from "./codeSlice";
 
 type Props = {
   open: boolean;
   onClose: () => void;
 };
 
-export default function InterviewDialog(props: Props) {
+export default function CodeDialog(props: Props) {
   const dispatch = useAppDispatch();
-  const [interviewName, setInterviewName] = useState<string | null>("");
-  const [interviewText, setInterviewText] = useState<string | null>("");
+  const [codeName, setCodeName] = useState<string | null>("");
   const newProject = () => {
-    dispatch(createInterview(interviewName, interviewText));
+    dispatch(createCode(codeName));
     props.onClose();
   };
 
@@ -33,15 +32,7 @@ export default function InterviewDialog(props: Props) {
           <TextField
             label="Nazwa wywiadu..."
             variant="standard"
-            onChange={(e) => setInterviewName(e.target.value)}
-          />
-        </Grid>
-        <Grid marginTop={2} width={500}>
-          <TextField
-            fullWidth
-            label="Tekst wywiadu..."
-            multiline
-            onChange={(e) => setInterviewText(e.target.value)}
+            onChange={(e) => setCodeName(e.target.value)}
           />
         </Grid>
       </DialogContent>

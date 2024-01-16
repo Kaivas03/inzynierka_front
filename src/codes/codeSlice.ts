@@ -7,95 +7,55 @@ import {
   getRequestTemplate,
 } from "../utils/fetchUtils";
 import { notifyError } from "../common/notifycations/notifycationsSlice";
-import { Interview, Quotation } from "./interviewsTypes";
+import { Code } from "./codeTypes";
 
-type InterviewsState = {
-  currentInterviewId: number | undefined;
-  currentInterviewName: string | null;
-  currentInterviewText: string | null;
-  interviewsList: Interview[];
-  interviewQuotationList: Quotation[];
+type CodeState = {
+  codesList: Code[];
 };
 
-const initialState: InterviewsState = {
-  currentInterviewId: undefined,
-  currentInterviewName: null,
-  currentInterviewText: null,
-  interviewsList: [],
-  interviewQuotationList: [],
+const initialState: CodeState = {
+  codesList: [],
 };
 
-const interviewsSlice = createSlice({
-  name: "interviews",
+const codesSlice = createSlice({
+  name: "codes",
   initialState,
   reducers: {
-    setCurrentInterviewId: (
-      state,
-      action: PayloadAction<number | undefined>
-    ) => {
-      state.currentInterviewId = action.payload;
-    },
-    setCurrentInterviewName: (
-      state,
-      action: PayloadAction<{ name: string | null; text: string | null }>
-    ) => {
-      state.currentInterviewName = action.payload.name;
-      state.currentInterviewText = action.payload.text;
-    },
-    setInterviewsList: (state, action: PayloadAction<Interview[]>) => {
-      state.interviewsList = action.payload;
-    },
-    setInterviewQuotationList: (state, action: PayloadAction<Quotation[]>) => {
-      state.interviewQuotationList = action.payload;
+    setCodesList: (state, action: PayloadAction<Code[]>) => {
+      state.codesList = action.payload;
     },
   },
 });
 
-export const { setCurrentInterviewId, setCurrentInterviewName } =
-  interviewsSlice.actions;
-const { setInterviewsList, setInterviewQuotationList } =
-  interviewsSlice.actions;
+const { setCodesList } = codesSlice.actions;
 
-export const fetchInterviews = (): AppThunk => async (dispatch, getState) => {
+export const fetchCodeList = (): AppThunk => async (dispatch, getState) => {
   const currentProjectId = getState().projectsReducer.currentProjectId;
-  const url = createUrl(`/interview/project/${currentProjectId}`);
+  const url = createUrl(`/code/project/${currentProjectId}`);
   const response = await fetchW(url, getRequestTemplate, dispatch);
   if (response.ok) {
-    dispatch(setInterviewsList(await response.json()));
+    dispatch(setCodesList(await response.json()));
   } else {
-    dispatch(setInterviewsList([]));
-    dispatch(notifyError("Błąd podczas pobierania wywiadów."));
+    dispatch(setCodesList([]));
+    dispatch(notifyError("Błąd podczas pobierania kodu."));
   }
 };
 
-export const fetchInterviewQuotations =
-  (): AppThunk => async (dispatch, getState) => {
-    const currentProjectId = getState().projectsReducer.currentProjectId;
-    const url = createUrl(`/quotation/${currentProjectId}`);
-    const response = await fetchW(url, getRequestTemplate, dispatch);
-    if (response.ok) {
-      dispatch(setInterviewQuotationList(await response.json()));
-    } else {
-      dispatch(setInterviewQuotationList([]));
-      dispatch(notifyError("Błąd podczas pobierania wywiadów."));
-    }
-  };
-
-export const createInterview =
-  (interviewName: string | null, interviewText: string | null): AppThunk =>
+export const createCode =
+  (codeName: string | null): AppThunk =>
   async (dispatch, getState) => {
     const currentProjectId = getState().projectsReducer.currentProjectId;
-    const url = createUrl(`/interview/${currentProjectId}`);
+    const url = createUrl(`/code/${currentProjectId}`);
     const response = await fetchW(
       url,
-      createPostRequest({ name: interviewName, text: interviewText }),
+      createPostRequest({ name: codeName }),
       dispatch
     );
     if (response.ok) {
-      dispatch(fetchInterviews());
+      dispatch(fetchCodeList());
     } else {
-      dispatch(notifyError("Podano złe dane wywiadu"));
+      dispatch(notifyError("Podano złe dane kodu"));
     }
   };
 
-export default interviewsSlice.reducer;
+export default codesSlice.reducer;

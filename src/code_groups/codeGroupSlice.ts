@@ -9,11 +9,11 @@ import {
 import { notifyError } from "../common/notifycations/notifycationsSlice";
 import { CodeGroup } from "./codeGroupTypes";
 
-type InterviewsState = {
+type CodeGroupState = {
   codeGroupList: CodeGroup[];
 };
 
-const initialState: InterviewsState = {
+const initialState: CodeGroupState = {
   codeGroupList: [],
 };
 

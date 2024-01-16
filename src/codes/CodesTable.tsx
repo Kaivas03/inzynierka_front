@@ -1,5 +1,4 @@
 import {
-  Button,
   Paper,
   Table,
   TableBody,
@@ -10,19 +9,15 @@ import {
 } from "@mui/material";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
-import {
-  fetchInterviews,
-  setCurrentInterviewId,
-  setCurrentInterviewName,
-} from "./interviewsSlice";
+import { fetchCodeList } from "./codeSlice";
 
-export function InterviewTable() {
-  const { interviewsList } = useAppSelector((state) => state.interviewReducer);
+export function CodeTable() {
+  const { codesList } = useAppSelector((state) => state.codesReducer);
   const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    currentProjectId && dispatch(fetchInterviews());
+    currentProjectId && dispatch(fetchCodeList());
     // eslint-disable-next-line
   }, []);
 
@@ -34,32 +29,15 @@ export function InterviewTable() {
             <TableCell></TableCell>
             <TableCell>Tytuł</TableCell>
             <TableCell>Cytaty</TableCell>
-            <TableCell>Kody</TableCell>
             <TableCell>Grupy Kodów</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {interviewsList.map((interview, index) => (
+          {codesList.map((code, index) => (
             <TableRow>
               <TableCell></TableCell>
-              <TableCell>
-                <Button
-                  onClick={() => {
-                    dispatch(setCurrentInterviewId(interview.id));
-                    dispatch(
-                      setCurrentInterviewName({
-                        name: interview.name,
-                        text: interview.text,
-                      })
-                    );
-                  }}
-                  sx={{ color: "black" }}
-                >
-                  {interview.name}
-                </Button>
-              </TableCell>
+              <TableCell>{code.name}</TableCell>
               <TableCell>ilość cytatów</TableCell>
-              <TableCell>ilość kodów</TableCell>
               <TableCell>ilość grup kodów</TableCell>
             </TableRow>
           ))}

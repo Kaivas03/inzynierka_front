@@ -1,9 +1,9 @@
 import { AppBar, Button, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import InterviewDialog from "./InterviewDialog";
+import CodeDialog from "./CodeDialog";
 
-export default function InterviewBar() {
+export default function CodeBar() {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -26,7 +26,7 @@ export default function InterviewBar() {
           >
             Dodaj wywiad
           </Button>
-          <InterviewDialog open={open} onClose={handleClose} />
+          <CodeDialog open={open} onClose={handleClose} />
         </Grid>
       </Grid>
     </AppBar>
