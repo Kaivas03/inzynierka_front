@@ -1,9 +1,9 @@
 import { AppBar, Button, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import ProjectDialog from "./ProjectDialog";
+import CodeGroupDialog from "./CodeGroupDialog";
 
-export default function SimpleTabProject() {
+export default function CodeGroupBar() {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -24,9 +24,9 @@ export default function SimpleTabProject() {
             size="small"
             onClick={handleClickOpen}
           >
-            Dodaj badanie
+            Dodaj grupę
           </Button>
-          <ProjectDialog open={open} onClose={handleClose} />
+          <CodeGroupDialog open={open} onClose={handleClose} />
         </Grid>
       </Grid>
     </AppBar>

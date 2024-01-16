@@ -2,16 +2,9 @@ import React, { useEffect } from "react";
 import "reactflow/dist/style.css";
 import { useAppDispatch, useAppSelector } from "../store";
 import { fetchHypothesisList } from "./hypothesisSlice";
-import { Position } from "./hypothesisTypes";
 import { MindMap } from "./ReactFlow/MindMap";
 import { ReactFlowProvider } from "reactflow";
 import { fetchMindMap, makeNodePackageEmpty } from "./ReactFlow/store";
-
-export interface CoolNode {
-  id: string;
-  position: Position;
-  data: { label: JSX.Element };
-}
 
 export function Hypothesis() {
   const dispatch = useAppDispatch();

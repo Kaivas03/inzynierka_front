@@ -6,6 +6,8 @@ import errorReducer from "./common/errors/errorSlice";
 import notyficationsReducer from "./common/notifycations/notifycationsSlice";
 import interviewReducer from "./interviews/interviewsSlice";
 import mindMapReducer from "./mind_map/ReactFlow/store";
+import codesReducer from "./codes/codeSlice";
+import codeGroupsReducer from "./code_groups/codeGroupSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +17,8 @@ export const store = configureStore({
     notyficationsReducer: notyficationsReducer,
     interviewReducer: interviewReducer,
     mindMapReducer: mindMapReducer,
+    codesReducer: codesReducer,
+    codeGroupsReducer: codeGroupsReducer,
   },
 });
 
