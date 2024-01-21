@@ -24,7 +24,7 @@ export default function CodeBar() {
             size="small"
             onClick={handleClickOpen}
           >
-            Dodaj wywiad
+            Dodaj kod
           </Button>
           <CodeDialog open={open} onClose={handleClose} />
         </Grid>

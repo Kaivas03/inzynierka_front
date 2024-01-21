@@ -1,7 +1,8 @@
-import { AppBar, Grid, IconButton, Typography } from "@mui/material";
+import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store";
 import { setCurrentInterviewId } from "./interviewsSlice";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function CurrentInterviewBar() {
   const dispatch = useAppDispatch();
@@ -11,18 +12,20 @@ export default function CurrentInterviewBar() {
 
   return (
     <AppBar position="sticky" color="default">
-      <Grid container spacing={1}>
-        <Grid item margin={1}>
-          <IconButton
-            onClick={() => dispatch(setCurrentInterviewId(undefined))}
-          >
-            <KeyboardBackspaceIcon />
-          </IconButton>
-        </Grid>
-        <Grid item margin={1}>
-          <Typography variant="h5">{currentInterviewName}</Typography>
-        </Grid>
-      </Grid>
+      <Toolbar>
+        <IconButton
+          onClick={() => dispatch(setCurrentInterviewId(undefined))}
+          edge="start"
+        >
+          <KeyboardBackspaceIcon />
+        </IconButton>
+        <Typography variant="h5" style={{ flexGrow: 1 }}>
+          {currentInterviewName}
+        </Typography>
+        <Button variant="contained" startIcon={<AddIcon />}>
+          Dodaj Cytat
+        </Button>
+      </Toolbar>
     </AppBar>
   );
 }

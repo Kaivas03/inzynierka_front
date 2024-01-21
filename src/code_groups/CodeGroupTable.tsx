@@ -23,7 +23,7 @@ export function CodeGroupTable() {
 
   return (
     <TableContainer component={Paper}>
-      <Table>
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell></TableCell>

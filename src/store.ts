@@ -8,6 +8,7 @@ import interviewReducer from "./interviews/interviewsSlice";
 import mindMapReducer from "./mind_map/ReactFlow/store";
 import codesReducer from "./codes/codeSlice";
 import codeGroupsReducer from "./code_groups/codeGroupSlice";
+import quotationReducer from "./interviews/quotation/quotationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     mindMapReducer: mindMapReducer,
     codesReducer: codesReducer,
     codeGroupsReducer: codeGroupsReducer,
+    quotationReducer: quotationReducer,
   },
 });
 

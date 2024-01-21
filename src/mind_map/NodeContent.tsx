@@ -1,4 +1,11 @@
-import { Grid, IconButton, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -27,42 +34,40 @@ export default function NodeContent(props: NodeData) {
   };
 
   return (
-    <Grid sx={{ border: 1, borderRadius: "12px", backgroundColor: "white" }}>
-      <Grid margin={1} container direction={"column"}>
-        <Grid container direction={"row"} spacing={1}>
-          <Grid>
-            <IconButton
-              sx={{ width: "15px", height: "15px" }}
-              onClick={handleClickOpen}
-            >
-              <AddIcon sx={{ width: "15px", height: "15px" }} />
-            </IconButton>
+    <Card sx={{ minWidth: 200, border: 1 }}>
+      <CardHeader
+        action={
+          <Grid container direction={"row"}>
+            <Grid>
+              <IconButton onClick={handleClickOpen}>
+                <AddIcon />
+              </IconButton>
+              <QuestionDialog
+                id={props.id}
+                posX={props.x}
+                posY={props.y}
+                open={opened}
+                onClose={handleClose}
+              />
+            </Grid>
+            <Grid>
+              <IconButton>
+                <EditIcon />
+              </IconButton>
+            </Grid>
+            <Grid>
+              <IconButton
+                onClick={() => dispatch(deleteQuestion(parseInt(props.id)))}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Grid>
           </Grid>
-          <Grid>
-            <IconButton sx={{ width: "15px", height: "15px" }}>
-              <EditIcon sx={{ width: "15px", height: "15px" }} />
-            </IconButton>
-          </Grid>
-          <Grid>
-            <IconButton
-              sx={{ width: "15px", height: "15px" }}
-              onClick={() => dispatch(deleteQuestion(parseInt(props.id)))}
-            >
-              <DeleteIcon sx={{ width: "15px", height: "15px" }} />
-            </IconButton>
-          </Grid>
-        </Grid>
-        <Grid>
-          <Typography>{props.text}</Typography>
-        </Grid>
-      </Grid>
-      <QuestionDialog
-        id={props.id}
-        posX={props.x}
-        posY={props.y}
-        open={opened}
-        onClose={handleClose}
+        }
       />
-    </Grid>
+      <CardContent>
+        <Typography>{props.text}</Typography>
+      </CardContent>
+    </Card>
   );
 }

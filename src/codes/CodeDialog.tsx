@@ -26,11 +26,11 @@ export default function CodeDialog(props: Props) {
 
   return (
     <Dialog open={props.open}>
-      <DialogTitle>Dodaj nowy wywiad</DialogTitle>
+      <DialogTitle>Dodaj nowy kod</DialogTitle>
       <DialogContent>
         <Grid>
           <TextField
-            label="Nazwa wywiadu..."
+            label="Nazwa kodu..."
             variant="standard"
             onChange={(e) => setCodeName(e.target.value)}
           />

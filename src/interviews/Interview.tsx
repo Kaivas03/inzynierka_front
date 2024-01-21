@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardContent,
   CardHeader,
@@ -8,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useAppSelector } from "../store";
-import InfoIcon from "@mui/icons-material/Info";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function Interview() {
   const { currentInterviewText } = useAppSelector(
@@ -19,7 +20,9 @@ export default function Interview() {
     <Grid container margin={1} direction={"row"} spacing={1}>
       <Grid item xs={9}>
         <Paper>
-          <Typography>{currentInterviewText}</Typography>
+          <Box component="main" sx={{ p: 3 }}>
+            <Typography>{currentInterviewText}</Typography>
+          </Box>
         </Paper>
       </Grid>
       <Grid item xs={3}>
@@ -29,7 +32,7 @@ export default function Interview() {
               title={<Typography>Numer linijki: 4</Typography>}
               action={
                 <IconButton>
-                  <InfoIcon />
+                  <MoreVertIcon />
                 </IconButton>
               }
             />
