@@ -11,7 +11,6 @@ import SaveIcon from "@mui/icons-material/Save";
 import { useState } from "react";
 import HypothesisDialog from "./HypothesisDialog";
 import { useAppDispatch, useAppSelector } from "../store";
-import { setCurrentHypothesisId } from "./hypothesisSlice";
 import { HypothesisItem } from "./hypothesisTypes";
 import { updatePositions } from "./ReactFlow/store";
 import { useNavigateSok } from "../utils/hooks";
