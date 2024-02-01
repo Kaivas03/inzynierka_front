@@ -5,6 +5,7 @@ import { fetchHypothesisList } from "./hypothesisSlice";
 import { MindMap } from "./ReactFlow/MindMap";
 import { ReactFlowProvider } from "reactflow";
 import { fetchMindMap, makeNodePackageEmpty } from "./ReactFlow/store";
+import { useParams } from "react-router-dom";
 
 export function Hypothesis() {
   const dispatch = useAppDispatch();
@@ -12,18 +13,20 @@ export function Hypothesis() {
   const { currentHypothesisId } = useAppSelector(
     (state) => state.hypothesisReducer
   );
+  const { hypothesisId } = useParams<{ hypothesisId: string | undefined }>();
+  const { projectId } = useParams<{ projectId: string | undefined }>();
 
   useEffect(() => {
-    currentProjectId && dispatch(fetchHypothesisList());
-  }, [dispatch, currentProjectId]);
+    projectId && dispatch(fetchHypothesisList());
+  }, [dispatch, projectId]);
 
   useEffect(() => {
-    currentHypothesisId && dispatch(fetchMindMap());
-    if (currentHypothesisId === undefined) {
+    hypothesisId && dispatch(fetchMindMap());
+    if (hypothesisId === undefined) {
       dispatch(makeNodePackageEmpty());
     }
     // eslint-disable-next-line
-  }, [dispatch, currentHypothesisId]);
+  }, [dispatch, hypothesisId]);
 
   return (
     <ReactFlowProvider>

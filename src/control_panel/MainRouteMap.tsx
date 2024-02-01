@@ -1,7 +1,6 @@
-import { Route, Routes } from "react-router-dom";
-import { Hypothesis } from "../mind_map/Hypothesis";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Grid } from "@mui/material";
-import MindMapBar from "./MindMapBar";
+import MindMapBar from "../mind_map/MindMapBar";
 import ControlPanel from "./ControlPanel";
 import { ProjectsList } from "../projects/ProjectsList";
 import SimpleTabProject from "../projects/ProjectBar";
@@ -14,6 +13,7 @@ import { CodeGroupTable } from "../code_groups/CodeGroupTable";
 import CodeGroupBar from "../code_groups/CodeGroupBar";
 import CodeBar from "../codes/CodesBar";
 import { CodeTable } from "../codes/CodesTable";
+import MindMapRouter from "../mind_map/MindMapRouter";
 
 export default function MainRouteMap() {
   const { currentInterviewId } = useAppSelector(
@@ -30,26 +30,44 @@ export default function MainRouteMap() {
           <Routes>
             <Route path={`/`} element={<SimpleTabProject />} />
             <Route
-              path={`/interview`}
+              path={`/:projectId/interview`}
               element={
                 currentInterviewId ? <CurrentInterviewBar /> : <InterviewBar />
               }
             />
-            <Route path={`/codes`} element={<CodeBar />} />
-            <Route path={`/code-groups`} element={<CodeGroupBar />} />
-            <Route path={`/mind-map`} element={<MindMapBar />} />
+            <Route path={`/:projectId/codes`} element={<CodeBar />} />
+            <Route
+              path={`/:projectId/code-groups`}
+              element={<CodeGroupBar />}
+            />
+            <Route path={`/:projectId/mind-map`} element={<MindMapBar />} />
+            <Route
+              path={`/:projectId/mind-map/:hypothesisId`}
+              element={<MindMapBar />}
+            />
+            <Route
+              path={`/:projectId`}
+              element={<Navigate replace to={`/:projectId/interview`} />}
+            />
           </Routes>
         </Grid>
         <Grid container>
           <Routes>
             <Route path={`/`} element={<ProjectsList />} />
             <Route
-              path={`/interview`}
+              path={`/:projectId/interview`}
               element={currentInterviewId ? <Interview /> : <InterviewTable />}
             />
-            <Route path={`/codes`} element={<CodeTable />} />
-            <Route path={`/code-groups`} element={<CodeGroupTable />} />
-            <Route path={`/mind-map`} element={<Hypothesis />} />
+            <Route path={`/:projectId/codes`} element={<CodeTable />} />
+            <Route
+              path={`/:projectId/code-groups`}
+              element={<CodeGroupTable />}
+            />
+            <Route path={`/:projectId/mind-map`} element={<MindMapRouter />} />
+            <Route
+              path={`/:projectId`}
+              element={<Navigate replace to={`/:projectId/interview`} />}
+            />
           </Routes>
         </Grid>
       </Grid>

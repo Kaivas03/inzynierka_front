@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Handle, NodeProps, Position } from "reactflow";
-import NodeContent from "../NodeContent";
+import NodeContent from "./NodeContent";
 
 export type NodeData = {
   text: string;

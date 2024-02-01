@@ -1,6 +1,5 @@
 import { Grid } from "@mui/material";
 import "reactflow/dist/style.css";
-
 import ReactFlow, {
   Controls,
   MiniMap,
@@ -11,13 +10,19 @@ import ReactFlow, {
   EdgeChange,
   applyNodeChanges,
   applyEdgeChanges,
+  ReactFlowProvider,
 } from "reactflow";
-
-import { setEdges, setNodes } from "./store";
+import {
+  fetchMindMap,
+  makeNodePackageEmpty,
+  setEdges,
+  setNodes,
+} from "./store";
 import MindMapNode from "./MindMapNode";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { useEffect } from "react";
-import { setNodeMoved } from "../hypothesisSlice";
+import { fetchHypothesisList, setNodeMoved } from "../hypothesisSlice";
+import { useParams } from "react-router-dom";
 
 const nodeTypes = {
   mindmap: MindMapNode,
@@ -26,6 +31,21 @@ const nodeTypes = {
 export function MindMap() {
   const { nodes, edges } = useAppSelector((store) => store.mindMapReducer);
   const dispatch = useAppDispatch();
+  const { hypothesisId } = useParams<{ hypothesisId: string | undefined }>();
+  const { projectId } = useParams<{ projectId: string | undefined }>();
+
+  useEffect(() => {
+    projectId && dispatch(fetchHypothesisList());
+  }, [dispatch, projectId]);
+
+  useEffect(() => {
+    hypothesisId && dispatch(fetchMindMap());
+    if (hypothesisId === undefined) {
+      dispatch(makeNodePackageEmpty());
+    }
+    console.log(hypothesisId);
+    // eslint-disable-next-line
+  }, [dispatch, hypothesisId]);
 
   const onNodesChange: OnNodesChange = (changes: NodeChange[]) => {
     dispatch(setNodes(applyNodeChanges(changes, nodes)));
@@ -41,27 +61,29 @@ export function MindMap() {
   }, [nodes]);
 
   return (
-    <Grid
-      item
-      xs={12}
-      sx={{
-        height: "90vh",
-        border: 1,
-      }}
-      margin={1}
-    >
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        nodeTypes={nodeTypes}
-        fitView
+    <ReactFlowProvider>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          height: "90vh",
+          border: 1,
+        }}
+        margin={1}
       >
-        <Controls />
-        <MiniMap />
-        <Background gap={12} size={1} />
-      </ReactFlow>
-    </Grid>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          nodeTypes={nodeTypes}
+          fitView
+        >
+          <Controls />
+          <MiniMap />
+          <Background gap={12} size={1} />
+        </ReactFlow>
+      </Grid>
+    </ReactFlowProvider>
   );
 }

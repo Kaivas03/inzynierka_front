@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import {
   Divider,
   Drawer,
@@ -11,62 +10,51 @@ import {
 import { useAppDispatch, useAppSelector } from "../store";
 import { setCurrentProjectId } from "../projects/projectsSlice";
 import HomeIcon from "@mui/icons-material/Home";
-import { makeNodePackageEmpty } from "../mind_map/ReactFlow/store";
-import { setCurrentHypothesisId } from "../mind_map/hypothesisSlice";
+import { useNavigateSok } from "../utils/hooks";
 
 export default function ControlPanel() {
   const dispatch = useAppDispatch();
   const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
+  const navigate = useNavigateSok();
 
   return (
     <Drawer variant="permanent" anchor="left" sx={{ minWidth: 20 }}>
       <Paper sx={{ width: "240px", maxWidth: "100%" }}>
         <MenuList>
-          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
-            <MenuItem
-              onClick={() => {
-                dispatch(setCurrentProjectId(undefined));
-                dispatch(makeNodePackageEmpty());
-                dispatch(setCurrentHypothesisId(undefined));
-              }}
-            >
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText>Badania</ListItemText>
-            </MenuItem>
-          </Link>
+          <MenuItem
+            onClick={() => {
+              navigate(`/`);
+              dispatch(setCurrentProjectId(undefined));
+            }}
+          >
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText>Badania</ListItemText>
+          </MenuItem>
         </MenuList>
         {currentProjectId && (
           <MenuList>
             <Divider />
-            <Link
-              to={"/interview"}
-              style={{ textDecoration: "none", color: "black" }}
+            <MenuItem
+              onClick={() => navigate(`/${currentProjectId}/interview`)}
             >
-              <MenuItem>Wywiady</MenuItem>
-            </Link>
+              Wywiady
+            </MenuItem>
             <Divider />
-            <Link
-              to={"/codes"}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <MenuItem>Kody</MenuItem>
-            </Link>
+            <MenuItem onClick={() => navigate(`/${currentProjectId}/codes`)}>
+              Kody
+            </MenuItem>
             <Divider />
-            <Link
-              to={"/code-groups"}
-              style={{ textDecoration: "none", color: "black" }}
+            <MenuItem
+              onClick={() => navigate(`/${currentProjectId}/code-groups`)}
             >
-              <MenuItem>Grupy kodów</MenuItem>
-            </Link>
+              Grupy kodów
+            </MenuItem>
             <Divider />
-            <Link
-              to={"/mind-map"}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <MenuItem>Hipotezy</MenuItem>
-            </Link>
+            <MenuItem onClick={() => navigate(`/${currentProjectId}/mind-map`)}>
+              Wnioski
+            </MenuItem>
           </MenuList>
         )}
       </Paper>

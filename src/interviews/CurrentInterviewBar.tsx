@@ -3,12 +3,23 @@ import { useAppDispatch, useAppSelector } from "../store";
 import { setCurrentInterviewId } from "./interviewsSlice";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import AddIcon from "@mui/icons-material/Add";
+import QuotationDialog from "./quotation/QuotationDialog";
+import { useState } from "react";
 
 export default function CurrentInterviewBar() {
   const dispatch = useAppDispatch();
   const { currentInterviewName } = useAppSelector(
     (state) => state.interviewReducer
   );
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <AppBar position="sticky" color="default">
@@ -22,9 +33,14 @@ export default function CurrentInterviewBar() {
         <Typography variant="h5" style={{ flexGrow: 1 }}>
           {currentInterviewName}
         </Typography>
-        <Button variant="contained" startIcon={<AddIcon />}>
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
           Dodaj Cytat
         </Button>
+        <QuotationDialog open={open} onClose={handleClose} />
       </Toolbar>
     </AppBar>
   );

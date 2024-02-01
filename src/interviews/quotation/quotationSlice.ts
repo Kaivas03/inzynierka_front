@@ -38,7 +38,7 @@ export const fetchQuotationList =
       dispatch(setQuotationList(await response.json()));
     } else {
       dispatch(setQuotationList([]));
-      dispatch(notifyError("Błąd podczas pobierania kodu."));
+      dispatch(notifyError("Błąd podczas pobierania cytatów."));
     }
   };
 
@@ -55,7 +55,7 @@ export const createQuotation =
     if (response.ok) {
       dispatch(fetchQuotationList());
     } else {
-      dispatch(notifyError("Podano złe dane kodu"));
+      dispatch(notifyError("Podano złe dane cytatu"));
     }
   };
 

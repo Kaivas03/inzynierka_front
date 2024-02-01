@@ -9,12 +9,13 @@ import {
 } from "@mui/material";
 import { useAppDispatch } from "../store";
 import { deleteProject, setCurrentProjectId } from "./projectsSlice";
-import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Project } from "./projectsTypes";
+import { useNavigateSok } from "../utils/hooks";
 
 export default function ProjectListItem(props: { project: Project }) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigateSok();
 
   return (
     <Card>
@@ -34,14 +35,15 @@ export default function ProjectListItem(props: { project: Project }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to="/mind-map">
-          <Button
-            variant="outlined"
-            onClick={() => dispatch(setCurrentProjectId(props.project.id))}
-          >
-            Przejdź do badania
-          </Button>
-        </Link>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            navigate(`/${props.project.id}/interview`);
+            dispatch(setCurrentProjectId(props.project.id));
+          }}
+        >
+          Przejdź do badania
+        </Button>
       </CardActions>
     </Card>
   );

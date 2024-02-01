@@ -9,14 +9,18 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import SaveIcon from "@mui/icons-material/Save";
 import { useState } from "react";
-import HypothesisDialog from "../mind_map/HypothesisDialog";
+import HypothesisDialog from "./HypothesisDialog";
 import { useAppDispatch, useAppSelector } from "../store";
-import { setCurrentHypothesisId } from "../mind_map/hypothesisSlice";
-import { HypothesisItem } from "../mind_map/hypothesisTypes";
-import { updatePositions } from "../mind_map/ReactFlow/store";
+import { setCurrentHypothesisId } from "./hypothesisSlice";
+import { HypothesisItem } from "./hypothesisTypes";
+import { updatePositions } from "./ReactFlow/store";
+import { useNavigateSok } from "../utils/hooks";
+import { useParams } from "react-router-dom";
 
 export default function MindMapBar() {
   const [openn, setOpenn] = useState(false);
+  const navigate = useNavigateSok();
+  const { projectId } = useParams<{ projectId: string | undefined }>();
   const { nodesMoved, hypothsesisList } = useAppSelector(
     (state) => state.hypothesisReducer
   );
@@ -61,7 +65,7 @@ export default function MindMapBar() {
               select
               variant="standard"
               onChange={(e) =>
-                dispatch(setCurrentHypothesisId(parseInt(e.target.value)))
+                navigate(`/${projectId}/mind-map/${e.target.value}`)
               }
               fullWidth
             >

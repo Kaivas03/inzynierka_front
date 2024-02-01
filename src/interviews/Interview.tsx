@@ -1,20 +1,20 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  IconButton,
-  Paper,
-  Typography,
-} from "@mui/material";
-import { useAppSelector } from "../store";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box, Grid, Paper, Typography } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../store";
+import QuotationCard from "./quotation/QuotationCard";
+import { useEffect } from "react";
+import { fetchQuotationList } from "./quotation/quotationSlice";
 
 export default function Interview() {
-  const { currentInterviewText } = useAppSelector(
+  const dispatch = useAppDispatch();
+  const { currentInterviewText, currentInterviewId } = useAppSelector(
     (state) => state.interviewReducer
   );
+  const { quotationList } = useAppSelector((state) => state.quotationReducer);
+
+  useEffect(() => {
+    currentInterviewId && dispatch(fetchQuotationList());
+    // eslint-disable-next-line
+  }, [currentInterviewId]);
 
   return (
     <Grid container margin={1} direction={"row"} spacing={1}>
@@ -27,19 +27,16 @@ export default function Interview() {
       </Grid>
       <Grid item xs={3}>
         <Paper>
-          <Card>
-            <CardHeader
-              title={<Typography>Numer linijki: 4</Typography>}
-              action={
-                <IconButton>
-                  <MoreVertIcon />
-                </IconButton>
-              }
-            />
-            <CardContent>
-              <Typography>Coś tam coś tam</Typography>
-            </CardContent>
-          </Card>
+          <Grid container spacing={1} sx={{ marginTop: "1rem" }}>
+            {quotationList.map((quotation, index) => (
+              <Grid item xs={12}>
+                <QuotationCard
+                  lineNumber={quotation.lineNumber}
+                  text={quotation.text}
+                />
+              </Grid>
+            ))}
+          </Grid>
         </Paper>
       </Grid>
     </Grid>

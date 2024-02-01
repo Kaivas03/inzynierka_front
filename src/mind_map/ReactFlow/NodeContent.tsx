@@ -9,10 +9,10 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import { useAppDispatch } from "../store";
-import { deleteQuestion } from "./ReactFlow/store";
+import { useAppDispatch } from "../../store";
+import { deleteQuestion } from "./store";
 import { useState } from "react";
-import QuestionDialog from "./questions/QuestionDialog";
+import QuestionDialog from "../questions/QuestionDialog";
 
 type NodeData = {
   id: string;

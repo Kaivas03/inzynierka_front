@@ -25,7 +25,7 @@ export default function QuestionDialog(props: Props) {
     dispatch(
       addChildNode(props.id, questionText ? questionText : "", {
         x: props.posX,
-        y: props.posY + 100,
+        y: props.posY + 200,
       })
     );
     dispatch(
@@ -33,7 +33,7 @@ export default function QuestionDialog(props: Props) {
         parseInt(props.id),
         questionText ? questionText : "",
         props.posX,
-        props.posY + 100
+        props.posY + 200
       )
     );
     props.onClose();

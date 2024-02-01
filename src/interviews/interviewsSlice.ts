@@ -56,17 +56,19 @@ export const { setCurrentInterviewId, setCurrentInterviewName } =
 const { setInterviewsList, setInterviewQuotationList } =
   interviewsSlice.actions;
 
-export const fetchInterviews = (): AppThunk => async (dispatch, getState) => {
-  const currentProjectId = getState().projectsReducer.currentProjectId;
-  const url = createUrl(`/interview/project/${currentProjectId}`);
-  const response = await fetchW(url, getRequestTemplate, dispatch);
-  if (response.ok) {
-    dispatch(setInterviewsList(await response.json()));
-  } else {
-    dispatch(setInterviewsList([]));
-    dispatch(notifyError("Błąd podczas pobierania wywiadów."));
-  }
-};
+export const fetchInterviews =
+  (currentProjectId: string | undefined): AppThunk =>
+  async (dispatch, getState) => {
+    // const currentProjectId = getState().projectsReducer.currentProjectId;
+    const url = createUrl(`/interview/project/${currentProjectId}`);
+    const response = await fetchW(url, getRequestTemplate, dispatch);
+    if (response.ok) {
+      dispatch(setInterviewsList(await response.json()));
+    } else {
+      dispatch(setInterviewsList([]));
+      dispatch(notifyError("Błąd podczas pobierania wywiadów."));
+    }
+  };
 
 export const fetchInterviewQuotations =
   (): AppThunk => async (dispatch, getState) => {
@@ -92,7 +94,7 @@ export const createInterview =
       dispatch
     );
     if (response.ok) {
-      dispatch(fetchInterviews());
+      dispatch(fetchInterviews(String(currentProjectId)));
     } else {
       dispatch(notifyError("Podano złe dane wywiadu"));
     }

@@ -15,14 +15,15 @@ import {
   setCurrentInterviewId,
   setCurrentInterviewName,
 } from "./interviewsSlice";
+import { useParams } from "react-router-dom";
 
 export function InterviewTable() {
   const { interviewsList } = useAppSelector((state) => state.interviewReducer);
-  const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
   const dispatch = useAppDispatch();
+  const { projectId } = useParams<{ projectId: string | undefined }>();
 
   useEffect(() => {
-    currentProjectId && dispatch(fetchInterviews());
+    projectId && dispatch(fetchInterviews(projectId));
     // eslint-disable-next-line
   }, []);
 
