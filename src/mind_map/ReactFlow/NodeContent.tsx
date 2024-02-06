@@ -42,8 +42,8 @@ export default function NodeContent(props: NodeData) {
               />
             </Grid>
             <OptionsMenu
+              openEditDialog={() => setCreateOpen(true)}
               onDelete={() => dispatch(deleteQuestion(parseInt(props.id)))}
-              onEdit={() => dispatch(deleteQuestion(parseInt(props.id)))}
             />
           </Grid>
         }

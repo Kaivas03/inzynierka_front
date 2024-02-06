@@ -4,14 +4,13 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  IconButton,
   Typography,
 } from "@mui/material";
 import { useAppDispatch } from "../store";
 import { deleteProject, setCurrentProjectId } from "./projectsSlice";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Project } from "./projectsTypes";
 import { useNavigateSok } from "../utils/hooks";
+import OptionsMenu from "../utils/OptionsMenu";
 
 export default function ProjectListItem(props: { project: Project }) {
   const dispatch = useAppDispatch();
@@ -24,9 +23,10 @@ export default function ProjectListItem(props: { project: Project }) {
           <Typography variant="subtitle1">{props.project.name}</Typography>
         }
         action={
-          <IconButton onClick={() => dispatch(deleteProject(props.project.id))}>
-            <DeleteIcon />
-          </IconButton>
+          <OptionsMenu
+            openEditDialog={() => {}}
+            onDelete={() => dispatch(deleteProject(props.project.id))}
+          />
         }
       />
       <CardContent>

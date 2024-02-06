@@ -1,11 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import OptionsMenu from "../../utils/OptionsMenu";
 
 type Props = {
   text: string;
@@ -17,11 +11,7 @@ export default function QuotationCard(props: Props) {
     <Card>
       <CardHeader
         title={<Typography>Numer linijki: {props.lineNumber}</Typography>}
-        action={
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        }
+        action={<OptionsMenu onDelete={() => {}} openEditDialog={() => {}} />}
       />
       <CardContent>
         <Typography>{props.text}</Typography>

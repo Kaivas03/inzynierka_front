@@ -16,6 +16,7 @@ import {
   setCurrentInterviewName,
 } from "./interviewsSlice";
 import { useParams } from "react-router-dom";
+import OptionsMenu from "../utils/OptionsMenu";
 
 export function InterviewTable() {
   const { interviewsList } = useAppSelector((state) => state.interviewReducer);
@@ -37,6 +38,7 @@ export function InterviewTable() {
             <TableCell>Cytaty</TableCell>
             <TableCell>Kody</TableCell>
             <TableCell>Grupy Kodów</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -62,6 +64,9 @@ export function InterviewTable() {
               <TableCell>ilość cytatów</TableCell>
               <TableCell>ilość kodów</TableCell>
               <TableCell>ilość grup kodów</TableCell>
+              <TableCell>
+                <OptionsMenu onDelete={() => {}} openEditDialog={() => {}} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

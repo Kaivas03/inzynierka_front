@@ -10,6 +10,7 @@ import {
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
 import { fetchCodeList } from "./codeSlice";
+import OptionsMenu from "../utils/OptionsMenu";
 
 export function CodeTable() {
   const { codesList } = useAppSelector((state) => state.codesReducer);
@@ -30,6 +31,7 @@ export function CodeTable() {
             <TableCell>Tytuł</TableCell>
             <TableCell>Cytaty</TableCell>
             <TableCell>Grupy Kodów</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -39,6 +41,9 @@ export function CodeTable() {
               <TableCell>{code.name}</TableCell>
               <TableCell>ilość cytatów</TableCell>
               <TableCell>ilość grup kodów</TableCell>
+              <TableCell>
+                <OptionsMenu onDelete={() => {}} openEditDialog={() => {}} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

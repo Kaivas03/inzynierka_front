@@ -13,8 +13,8 @@ import { useState } from "react";
 import DeleteConfirm from "./DeleteConfirm";
 
 type Props = {
-  onEdit: () => void;
   onDelete: () => void;
+  openEditDialog: () => void;
 };
 
 export default function OptionsMenu(props: Props) {
@@ -31,7 +31,7 @@ export default function OptionsMenu(props: Props) {
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem>
+        <MenuItem onClick={props.openEditDialog}>
           <ListItemIcon>
             <EditIcon />
           </ListItemIcon>
