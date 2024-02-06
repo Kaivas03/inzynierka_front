@@ -16,10 +16,10 @@ type Props = {
   onClose: () => void;
 };
 
-export default function CodeGroupDialog(props: Props) {
+export default function CodeGroupCreateDialog(props: Props) {
   const dispatch = useAppDispatch();
   const [interviewName, setInterviewName] = useState<string | null>("");
-  const newProject = () => {
+  const newCodeGroup = () => {
     dispatch(createCodeGroup(interviewName));
     props.onClose();
   };
@@ -38,7 +38,7 @@ export default function CodeGroupDialog(props: Props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>
-        <Button onClick={newProject}>Utwórz</Button>
+        <Button onClick={newCodeGroup}>Utwórz</Button>
       </DialogActions>
     </Dialog>
   );

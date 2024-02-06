@@ -7,12 +7,14 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
-import { fetchCodeGroups } from "./codeGroupSlice";
+import { deleteCodeGroup, fetchCodeGroups } from "./codeGroupSlice";
 import OptionsMenu from "../utils/OptionsMenu";
+import CodeGroupEditDialog from "./CodeGroupEditDialog";
 
 export function CodeGroupTable() {
+  const [editOpen, setEditOpen] = useState<boolean>(false);
   const { codeGroupList } = useAppSelector((state) => state.codeGroupsReducer);
   const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
   const dispatch = useAppDispatch();
@@ -42,8 +44,16 @@ export function CodeGroupTable() {
               <TableCell>ilość cytatów</TableCell>
               <TableCell>ilość kodów</TableCell>
               <TableCell>
-                <OptionsMenu onDelete={() => {}} openEditDialog={() => {}} />
+                <OptionsMenu
+                  onDelete={() => dispatch(deleteCodeGroup(codeGroup.id))}
+                  openEditDialog={() => setEditOpen(true)}
+                />
               </TableCell>
+              <CodeGroupEditDialog
+                codeGroup={codeGroup}
+                open={editOpen}
+                onClose={() => setEditOpen(false)}
+              />
             </TableRow>
           ))}
         </TableBody>

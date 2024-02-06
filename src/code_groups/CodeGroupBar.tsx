@@ -1,7 +1,7 @@
 import { AppBar, Button, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import CodeGroupDialog from "./CodeGroupDialog";
+import CodeGroupCreateDialog from "./CodeGroupCreateDialog";
 
 export default function CodeGroupBar() {
   const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function CodeGroupBar() {
           >
             Dodaj grupę
           </Button>
-          <CodeGroupDialog open={open} onClose={handleClose} />
+          <CodeGroupCreateDialog open={open} onClose={handleClose} />
         </Grid>
       </Grid>
     </AppBar>

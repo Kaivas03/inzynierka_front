@@ -3,10 +3,14 @@ import { AppThunk } from "../store";
 import {
   createPostRequest,
   createUrl,
+  deleteRequestTemplate,
   fetchW,
   getRequestTemplate,
 } from "../utils/fetchUtils";
-import { notifyError } from "../common/notifycations/notifycationsSlice";
+import {
+  notifyError,
+  notifySuccess,
+} from "../common/notifycations/notifycationsSlice";
 import { CodeGroup } from "./codeGroupTypes";
 
 type CodeGroupState = {
@@ -53,8 +57,39 @@ export const createCodeGroup =
     );
     if (response.ok) {
       dispatch(fetchCodeGroups());
+      dispatch(notifySuccess("Dodano nową grupę"));
     } else {
       dispatch(notifyError("Podano złe dane groupy"));
+    }
+  };
+
+export const editCodeGroup =
+  (codeGroupId: number, codeGroupName: string | null): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/code-group/edit/${codeGroupId}`);
+    const response = await fetchW(
+      url,
+      createPostRequest({ name: codeGroupName }),
+      dispatch
+    );
+    if (response.ok) {
+      dispatch(fetchCodeGroups());
+      dispatch(notifySuccess(`Pomyślnie edytowano grupę id: ${codeGroupId}`));
+    } else {
+      dispatch(notifyError("Podano złe dane grupy"));
+    }
+  };
+
+export const deleteCodeGroup =
+  (codeGroupId: number): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/code-group/${codeGroupId}`);
+    const response = await fetchW(url, deleteRequestTemplate, dispatch);
+    if (response.ok) {
+      dispatch(fetchCodeGroups());
+      dispatch(notifySuccess("Usunięto grupę id: " + codeGroupId));
+    } else {
+      dispatch(notifyError("Nie udało się usunąć grupy"));
     }
   };
 
