@@ -12,9 +12,9 @@ import { useAppDispatch, useAppSelector } from "../store";
 import { deleteCodeGroup, fetchCodeGroups } from "./codeGroupSlice";
 import OptionsMenu from "../utils/OptionsMenu";
 import CodeGroupEditDialog from "./CodeGroupEditDialog";
+import { CodeGroup } from "./codeGroupTypes";
 
 export function CodeGroupTable() {
-  const [editOpen, setEditOpen] = useState<boolean>(false);
   const { codeGroupList } = useAppSelector((state) => state.codeGroupsReducer);
   const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
   const dispatch = useAppDispatch();
@@ -23,6 +23,30 @@ export function CodeGroupTable() {
     currentProjectId && dispatch(fetchCodeGroups());
     // eslint-disable-next-line
   }, []);
+
+  function MyRow(codeGroup: CodeGroup) {
+    const [editOpen, setEditOpen] = useState<boolean>(false);
+
+    return (
+      <TableRow>
+        <TableCell></TableCell>
+        <TableCell>{codeGroup.name}</TableCell>
+        <TableCell>ilość cytatów</TableCell>
+        <TableCell>ilość kodów</TableCell>
+        <TableCell>
+          <OptionsMenu
+            onDelete={() => dispatch(deleteCodeGroup(codeGroup.id))}
+            openEditDialog={() => setEditOpen(true)}
+          />
+        </TableCell>
+        <CodeGroupEditDialog
+          codeGroup={codeGroup}
+          open={editOpen}
+          onClose={() => setEditOpen(false)}
+        />
+      </TableRow>
+    );
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -37,25 +61,9 @@ export function CodeGroupTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {codeGroupList.map((codeGroup, index) => (
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>{codeGroup.name}</TableCell>
-              <TableCell>ilość cytatów</TableCell>
-              <TableCell>ilość kodów</TableCell>
-              <TableCell>
-                <OptionsMenu
-                  onDelete={() => dispatch(deleteCodeGroup(codeGroup.id))}
-                  openEditDialog={() => setEditOpen(true)}
-                />
-              </TableCell>
-              <CodeGroupEditDialog
-                codeGroup={codeGroup}
-                open={editOpen}
-                onClose={() => setEditOpen(false)}
-              />
-            </TableRow>
-          ))}
+          {codeGroupList.map((codeGroup, index) => {
+            return MyRow(codeGroup);
+          })}
         </TableBody>
       </Table>
     </TableContainer>

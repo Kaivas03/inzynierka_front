@@ -16,7 +16,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function InterviewDialog(props: Props) {
+export default function InterviewCreateDialog(props: Props) {
   const dispatch = useAppDispatch();
   const [interviewName, setInterviewName] = useState<string | null>("");
   const [interviewText, setInterviewText] = useState<string | null>("");
