@@ -11,8 +11,11 @@ import { deleteProject, setCurrentProjectId } from "./projectsSlice";
 import { Project } from "./projectsTypes";
 import { useNavigateSok } from "../utils/hooks";
 import OptionsMenu from "../utils/OptionsMenu";
+import { useState } from "react";
+import ProjectEditDialog from "./ProjectEditDialog";
 
 export default function ProjectListItem(props: { project: Project }) {
+  const [editOpen, setEditOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigateSok();
 
@@ -24,7 +27,7 @@ export default function ProjectListItem(props: { project: Project }) {
         }
         action={
           <OptionsMenu
-            openEditDialog={() => {}}
+            openEditDialog={() => setEditOpen(true)}
             onDelete={() => dispatch(deleteProject(props.project.id))}
           />
         }
@@ -45,6 +48,11 @@ export default function ProjectListItem(props: { project: Project }) {
           Przejdź do badania
         </Button>
       </CardActions>
+      <ProjectEditDialog
+        project={props.project}
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+      />
     </Card>
   );
 }

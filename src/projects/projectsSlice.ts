@@ -61,6 +61,28 @@ export const createProject =
     );
     if (response.ok) {
       dispatch(fetchProjects());
+      dispatch(notifySuccess("Dodano nowy projekt"));
+    } else {
+      dispatch(notifyError("Podano złe dane projektu"));
+    }
+  };
+
+export const editProject =
+  (
+    projectId: number,
+    projectName: string | null,
+    projectDescription: string | null
+  ): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/project/edit/${projectId}`);
+    const response = await fetchW(
+      url,
+      createPostRequest({ name: projectName, description: projectDescription }),
+      dispatch
+    );
+    if (response.ok) {
+      dispatch(fetchProjects());
+      dispatch(notifySuccess(`Pomyślnie edytowano projekt id: ${projectId}`));
     } else {
       dispatch(notifyError("Podano złe dane projektu"));
     }

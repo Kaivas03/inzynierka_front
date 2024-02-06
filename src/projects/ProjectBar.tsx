@@ -1,7 +1,7 @@
 import { AppBar, Button, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import ProjectDialog from "./ProjectDialog";
+import ProjectCreateDialog from "./ProjectCreateDialog";
 
 export default function SimpleTabProject() {
   const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function SimpleTabProject() {
           >
             Dodaj badanie
           </Button>
-          <ProjectDialog open={open} onClose={handleClose} />
+          <ProjectCreateDialog open={open} onClose={handleClose} />
         </Grid>
       </Grid>
     </AppBar>

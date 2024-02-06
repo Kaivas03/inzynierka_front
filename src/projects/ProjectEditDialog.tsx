@@ -7,32 +7,39 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import { createProject } from "./projectsSlice";
+import { editProject } from "./projectsSlice";
 import { useAppDispatch } from "../store";
 import { useState } from "react";
+import { Project } from "./projectsTypes";
 
 type Props = {
+  project: Project;
   open: boolean;
   onClose: () => void;
 };
 
-export default function ProjectDialog(props: Props) {
+export default function ProjectEditDialog(props: Props) {
   const dispatch = useAppDispatch();
-  const [projectName, setProjectName] = useState<string | null>("");
-  const [projectDescrition, setProjectDescrition] = useState<string | null>("");
-  const newProject = () => {
-    dispatch(createProject(projectName, projectDescrition));
+  const [projectName, setProjectName] = useState<string | null>(
+    props.project.name
+  );
+  const [projectDescrition, setProjectDescrition] = useState<string | null>(
+    props.project.description
+  );
+  const saveProject = () => {
+    dispatch(editProject(props.project.id, projectName, projectDescrition));
     props.onClose();
   };
 
   return (
     <Dialog open={props.open}>
-      <DialogTitle>Dodaj nowe badanie</DialogTitle>
+      <DialogTitle>Edytuj badanie</DialogTitle>
       <DialogContent>
         <Grid>
           <TextField
             label="Nazwa badania..."
             variant="standard"
+            defaultValue={props.project.name}
             onChange={(e) => setProjectName(e.target.value)}
           />
         </Grid>
@@ -40,13 +47,14 @@ export default function ProjectDialog(props: Props) {
           <TextField
             label="Opis badania..."
             variant="standard"
+            defaultValue={props.project.description}
             onChange={(e) => setProjectDescrition(e.target.value)}
           />
         </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>
-        <Button onClick={newProject}>Utwórz</Button>
+        <Button onClick={saveProject}>Zapisz</Button>
       </DialogActions>
     </Dialog>
   );
