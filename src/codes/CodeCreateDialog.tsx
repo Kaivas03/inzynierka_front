@@ -16,7 +16,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function CodeDialog(props: Props) {
+export default function CodeCreateDialog(props: Props) {
   const dispatch = useAppDispatch();
   const [codeName, setCodeName] = useState<string | null>("");
   const newProject = () => {

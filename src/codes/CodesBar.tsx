@@ -1,7 +1,7 @@
 import { AppBar, Button, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import CodeDialog from "./CodeDialog";
+import CodeCreateDialog from "./CodeCreateDialog";
 
 export default function CodeBar() {
   const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function CodeBar() {
           >
             Dodaj kod
           </Button>
-          <CodeDialog open={open} onClose={handleClose} />
+          <CodeCreateDialog open={open} onClose={handleClose} />
         </Grid>
       </Grid>
     </AppBar>

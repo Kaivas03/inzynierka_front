@@ -3,10 +3,14 @@ import { AppThunk } from "../store";
 import {
   createPostRequest,
   createUrl,
+  deleteRequestTemplate,
   fetchW,
   getRequestTemplate,
 } from "../utils/fetchUtils";
-import { notifyError } from "../common/notifycations/notifycationsSlice";
+import {
+  notifyError,
+  notifySuccess,
+} from "../common/notifycations/notifycationsSlice";
 import { Code } from "./codeTypes";
 
 type CodeState = {
@@ -53,8 +57,39 @@ export const createCode =
     );
     if (response.ok) {
       dispatch(fetchCodeList());
+      dispatch(notifySuccess("Utworzono nowy kod"));
     } else {
       dispatch(notifyError("Podano złe dane kodu"));
+    }
+  };
+
+export const editCode =
+  (codeId: number, codeName: string | null): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/code/edit/${codeId}`);
+    const response = await fetchW(
+      url,
+      createPostRequest({ name: codeName }),
+      dispatch
+    );
+    if (response.ok) {
+      dispatch(fetchCodeList());
+      dispatch(notifySuccess(`Pomyślnie edytowano kod id: ${codeId}`));
+    } else {
+      dispatch(notifyError("Podano złe dane kodu"));
+    }
+  };
+
+export const deleteCode =
+  (codeId: number): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/code/${codeId}`);
+    const response = await fetchW(url, deleteRequestTemplate, dispatch);
+    if (response.ok) {
+      dispatch(fetchCodeList());
+      dispatch(notifySuccess("Usunięto kod id: " + codeId));
+    } else {
+      dispatch(notifyError("Nie udało się usunąć kodu"));
     }
   };
 
