@@ -13,12 +13,14 @@ import { CodeGroupTable } from "../code_groups/CodeGroupTable";
 import CodeGroupBar from "../code_groups/CodeGroupBar";
 import CodeBar from "../codes/CodesBar";
 import { CodeTable } from "../codes/CodesTable";
-import MindMapRouter from "../mind_map/MindMapRouter";
+import { useParams } from "react-router-dom";
+import { MindMap } from "../mind_map/ReactFlow/MindMap";
 
 export default function MainRouteMap() {
   const { currentInterviewId } = useAppSelector(
     (state) => state.interviewReducer
   );
+  const { projectId } = useParams<{ projectId: string | undefined }>();
 
   return (
     <Grid container>
@@ -47,7 +49,7 @@ export default function MainRouteMap() {
             />
             <Route
               path={`/:projectId`}
-              element={<Navigate replace to={`/:projectId/interview`} />}
+              element={<Navigate replace to={`/${projectId}/interview`} />}
             />
           </Routes>
         </Grid>
@@ -63,10 +65,10 @@ export default function MainRouteMap() {
               path={`/:projectId/code-groups`}
               element={<CodeGroupTable />}
             />
-            <Route path={`/:projectId/mind-map`} element={<MindMapRouter />} />
+            <Route path={`/:projectId/mind-map`} element={<MindMap />} />
             <Route
               path={`/:projectId`}
-              element={<Navigate replace to={`/:projectId/interview`} />}
+              element={<Navigate replace to={`/${projectId}/interview`} />}
             />
           </Routes>
         </Grid>

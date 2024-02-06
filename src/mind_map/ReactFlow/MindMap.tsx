@@ -22,7 +22,6 @@ import MindMapNode from "./MindMapNode";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { useEffect } from "react";
 import { fetchHypothesisList, setNodeMoved } from "../hypothesisSlice";
-import { useParams } from "react-router-dom";
 
 const nodeTypes = {
   mindmap: MindMapNode,
@@ -31,21 +30,23 @@ const nodeTypes = {
 export function MindMap() {
   const { nodes, edges } = useAppSelector((store) => store.mindMapReducer);
   const dispatch = useAppDispatch();
-  const { hypothesisId } = useParams<{ hypothesisId: string | undefined }>();
-  const { projectId } = useParams<{ projectId: string | undefined }>();
+  const { currentHypothesisId } = useAppSelector(
+    (state) => state.hypothesisReducer
+  );
+  const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
 
   useEffect(() => {
-    projectId && dispatch(fetchHypothesisList());
-  }, [dispatch, projectId]);
+    currentProjectId && dispatch(fetchHypothesisList());
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
-    hypothesisId && dispatch(fetchMindMap());
-    if (hypothesisId === undefined) {
+    currentHypothesisId && dispatch(fetchMindMap());
+    if (currentHypothesisId === undefined) {
       dispatch(makeNodePackageEmpty());
     }
-    console.log(hypothesisId);
     // eslint-disable-next-line
-  }, [dispatch, hypothesisId]);
+  }, [dispatch, currentHypothesisId]);
 
   const onNodesChange: OnNodesChange = (changes: NodeChange[]) => {
     dispatch(setNodes(applyNodeChanges(changes, nodes)));

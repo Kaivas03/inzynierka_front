@@ -6,13 +6,12 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
 import { useAppDispatch } from "../../store";
 import { deleteQuestion } from "./store";
 import { useState } from "react";
 import QuestionDialog from "../questions/QuestionDialog";
+import OptionsMenu from "../../utils/OptionsMenu";
 
 type NodeData = {
   id: string;
@@ -23,15 +22,7 @@ type NodeData = {
 
 export default function NodeContent(props: NodeData) {
   const dispatch = useAppDispatch();
-  const [opened, setOpened] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpened(true);
-  };
-
-  const handleClose = () => {
-    setOpened(false);
-  };
+  const [createOpen, setCreateOpen] = useState<boolean>(false);
 
   return (
     <Card sx={{ minWidth: 200, border: 1 }}>
@@ -39,29 +30,21 @@ export default function NodeContent(props: NodeData) {
         action={
           <Grid container direction={"row"}>
             <Grid>
-              <IconButton onClick={handleClickOpen}>
+              <IconButton onClick={() => setCreateOpen(true)}>
                 <AddIcon />
               </IconButton>
               <QuestionDialog
                 id={props.id}
                 posX={props.x}
                 posY={props.y}
-                open={opened}
-                onClose={handleClose}
+                open={createOpen}
+                onClose={() => setCreateOpen(false)}
               />
             </Grid>
-            <Grid>
-              <IconButton>
-                <EditIcon />
-              </IconButton>
-            </Grid>
-            <Grid>
-              <IconButton
-                onClick={() => dispatch(deleteQuestion(parseInt(props.id)))}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Grid>
+            <OptionsMenu
+              onDelete={() => dispatch(deleteQuestion(parseInt(props.id)))}
+              onEdit={() => dispatch(deleteQuestion(parseInt(props.id)))}
+            />
           </Grid>
         }
       />

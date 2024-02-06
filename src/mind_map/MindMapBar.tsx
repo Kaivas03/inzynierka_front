@@ -13,12 +13,13 @@ import HypothesisDialog from "./HypothesisDialog";
 import { useAppDispatch, useAppSelector } from "../store";
 import { HypothesisItem } from "./hypothesisTypes";
 import { updatePositions } from "./ReactFlow/store";
-import { useNavigateSok } from "../utils/hooks";
+// import { useNavigateSok } from "../utils/hooks";
 import { useParams } from "react-router-dom";
+import { setCurrentHypothesisId } from "./hypothesisSlice";
 
 export default function MindMapBar() {
   const [openn, setOpenn] = useState(false);
-  const navigate = useNavigateSok();
+  // const navigate = useNavigateSok();
   const { projectId } = useParams<{ projectId: string | undefined }>();
   const { nodesMoved, hypothsesisList } = useAppSelector(
     (state) => state.hypothesisReducer
@@ -64,7 +65,8 @@ export default function MindMapBar() {
               select
               variant="standard"
               onChange={(e) =>
-                navigate(`/${projectId}/mind-map/${e.target.value}`)
+                // navigate(`/${projectId}/mind-map/${e.target.value}`)
+                dispatch(setCurrentHypothesisId(parseInt(e.target.value)))
               }
               fullWidth
             >
