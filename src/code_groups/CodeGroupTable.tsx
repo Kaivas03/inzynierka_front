@@ -14,6 +14,33 @@ import OptionsMenu from "../utils/OptionsMenu";
 import CodeGroupEditDialog from "./CodeGroupEditDialog";
 import { CodeGroup } from "./codeGroupTypes";
 
+type Prop = { codeGroup: CodeGroup };
+
+function MyRow(prop: Prop) {
+  const [editOpen, setEditOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+  return (
+    <TableRow>
+      <TableCell></TableCell>
+      <TableCell>{prop.codeGroup.name}</TableCell>
+      <TableCell>ilość cytatów</TableCell>
+      <TableCell>ilość kodów</TableCell>
+      <TableCell>
+        <OptionsMenu
+          onDelete={() => dispatch(deleteCodeGroup(prop.codeGroup.id))}
+          openEditDialog={() => setEditOpen(true)}
+        />
+      </TableCell>
+      <CodeGroupEditDialog
+        codeGroup={prop.codeGroup}
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+      />
+    </TableRow>
+  );
+}
+
 export function CodeGroupTable() {
   const { codeGroupList } = useAppSelector((state) => state.codeGroupsReducer);
   const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
@@ -23,30 +50,6 @@ export function CodeGroupTable() {
     currentProjectId && dispatch(fetchCodeGroups());
     // eslint-disable-next-line
   }, []);
-
-  function MyRow(codeGroup: CodeGroup) {
-    const [editOpen, setEditOpen] = useState<boolean>(false);
-
-    return (
-      <TableRow>
-        <TableCell></TableCell>
-        <TableCell>{codeGroup.name}</TableCell>
-        <TableCell>ilość cytatów</TableCell>
-        <TableCell>ilość kodów</TableCell>
-        <TableCell>
-          <OptionsMenu
-            onDelete={() => dispatch(deleteCodeGroup(codeGroup.id))}
-            openEditDialog={() => setEditOpen(true)}
-          />
-        </TableCell>
-        <CodeGroupEditDialog
-          codeGroup={codeGroup}
-          open={editOpen}
-          onClose={() => setEditOpen(false)}
-        />
-      </TableRow>
-    );
-  }
 
   return (
     <TableContainer component={Paper}>
@@ -61,9 +64,9 @@ export function CodeGroupTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {codeGroupList.map((codeGroup, index) => {
-            return MyRow(codeGroup);
-          })}
+          {codeGroupList.map((codeGroup, index) => (
+            <MyRow codeGroup={codeGroup} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

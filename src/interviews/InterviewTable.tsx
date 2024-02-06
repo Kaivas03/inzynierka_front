@@ -20,6 +20,47 @@ import OptionsMenu from "../utils/OptionsMenu";
 import InterviewEditDialog from "./InterviewEditDialog";
 import { Interview } from "./interviewsTypes";
 
+type Prop = { interview: Interview };
+
+function MyTableRow(prop: Prop) {
+  const [editOpen, setEditOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+  return (
+    <TableRow>
+      <TableCell></TableCell>
+      <TableCell
+        sx={{ cursor: "pointer" }}
+        onClick={() => {
+          dispatch(setCurrentInterviewId(prop.interview.id));
+          dispatch(
+            setCurrentInterviewName({
+              name: prop.interview.name,
+              text: prop.interview.text,
+            })
+          );
+        }}
+      >
+        <b>{prop.interview.name.toUpperCase()}</b>
+      </TableCell>
+      <TableCell>ilość cytatów</TableCell>
+      <TableCell>ilość kodów</TableCell>
+      <TableCell>ilość grup kodów</TableCell>
+      <TableCell>
+        <OptionsMenu
+          onDelete={() => dispatch(deleteInterview(prop.interview.id))}
+          openEditDialog={() => setEditOpen(true)}
+        />
+      </TableCell>
+      <InterviewEditDialog
+        interview={prop.interview}
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+      />
+    </TableRow>
+  );
+}
+
 export function InterviewTable() {
   const { interviewsList } = useAppSelector((state) => state.interviewReducer);
   const dispatch = useAppDispatch();
@@ -29,44 +70,6 @@ export function InterviewTable() {
     projectId && dispatch(fetchInterviews());
     // eslint-disable-next-line
   }, []);
-
-  function MyTableRow(interview: Interview) {
-    const [editOpen, setEditOpen] = useState<boolean>(false);
-
-    return (
-      <TableRow>
-        <TableCell></TableCell>
-        <TableCell
-          sx={{ cursor: "pointer" }}
-          onClick={() => {
-            dispatch(setCurrentInterviewId(interview.id));
-            dispatch(
-              setCurrentInterviewName({
-                name: interview.name,
-                text: interview.text,
-              })
-            );
-          }}
-        >
-          <b>{interview.name.toUpperCase()}</b>
-        </TableCell>
-        <TableCell>ilość cytatów</TableCell>
-        <TableCell>ilość kodów</TableCell>
-        <TableCell>ilość grup kodów</TableCell>
-        <TableCell>
-          <OptionsMenu
-            onDelete={() => dispatch(deleteInterview(interview.id))}
-            openEditDialog={() => setEditOpen(true)}
-          />
-        </TableCell>
-        <InterviewEditDialog
-          interview={interview}
-          open={editOpen}
-          onClose={() => setEditOpen(false)}
-        />
-      </TableRow>
-    );
-  }
 
   return (
     <TableContainer component={Paper}>
@@ -82,9 +85,9 @@ export function InterviewTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {interviewsList.map((interview, index) => {
-            return MyTableRow(interview);
-          })}
+          {interviewsList.map((interview, index) => (
+            <MyTableRow interview={interview} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

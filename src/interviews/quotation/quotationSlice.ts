@@ -4,10 +4,14 @@ import { AppThunk } from "../../store";
 import {
   createPostRequest,
   createUrl,
+  deleteRequestTemplate,
   fetchW,
   getRequestTemplate,
 } from "../../utils/fetchUtils";
-import { notifyError } from "../../common/notifycations/notifycationsSlice";
+import {
+  notifyError,
+  notifySuccess,
+} from "../../common/notifycations/notifycationsSlice";
 
 type QuotationState = {
   quotationList: Quotation[];
@@ -54,8 +58,39 @@ export const createQuotation =
     );
     if (response.ok) {
       dispatch(fetchQuotationList());
+      dispatch(notifySuccess(`Pomyślnie utworzono cytat`));
     } else {
       dispatch(notifyError("Podano złe dane cytatu"));
+    }
+  };
+
+export const editQuotation =
+  (id: number, text: string | null, lineNumber: number | null): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/quotation/edit/${id}`);
+    const response = await fetchW(
+      url,
+      createPostRequest({ text: text, lineNumber: lineNumber }),
+      dispatch
+    );
+    if (response.ok) {
+      dispatch(fetchQuotationList());
+      dispatch(notifySuccess(`Pomyślnie edytowano cytat id: ${id}`));
+    } else {
+      dispatch(notifyError("Podano złe dane cytatu"));
+    }
+  };
+
+export const deleteQuotation =
+  (id: number): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/quotation/${id}`);
+    const response = await fetchW(url, deleteRequestTemplate, dispatch);
+    if (response.ok) {
+      dispatch(fetchQuotationList());
+      dispatch(notifySuccess("Usunięto cytat id: " + id));
+    } else {
+      dispatch(notifyError("Nie udało się usunąć cytatu"));
     }
   };
 

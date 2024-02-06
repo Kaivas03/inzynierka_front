@@ -9,34 +9,42 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "../../store";
-import { createQuotation } from "./quotationSlice";
+import { editQuotation } from "./quotationSlice";
 import {
   NumberFormatValues,
   NumericFormat,
   SourceInfo,
 } from "react-number-format";
+import { Quotation } from "../interviewsTypes";
 
 type Props = {
+  quotation: Quotation;
   open: boolean;
   onClose: () => void;
 };
 
-export default function QuotationDialog(props: Props) {
+export default function QuotationEditDialog(props: Props) {
   const dispatch = useAppDispatch();
-  const [quotationText, setQuotationText] = useState<string | null>("");
-  const [lineNumber, setLineNumber] = useState<number | null>(null);
-  const newProject = () => {
-    dispatch(createQuotation(quotationText, lineNumber));
+  const [quotationText, setQuotationText] = useState<string | null>(
+    props.quotation.text
+  );
+  const [lineNumber, setLineNumber] = useState<number | null>(
+    props.quotation.lineNumber
+  );
+  const onEditQuotation = () => {
+    dispatch(editQuotation(props.quotation.id, quotationText, lineNumber));
     props.onClose();
   };
   const handleValueChange = (values: NumberFormatValues, info: SourceInfo) => {
     const { value } = values;
-    if (info.source === "event") setLineNumber(Number(value));
+    if (info.source === "event") {
+      setLineNumber(Number(value));
+    }
   };
 
   return (
     <Dialog open={props.open}>
-      <DialogTitle>Dodaj nowy cytat</DialogTitle>
+      <DialogTitle>Edytuj cytat</DialogTitle>
       <DialogContent>
         <Grid>
           <NumericFormat
@@ -47,6 +55,7 @@ export default function QuotationDialog(props: Props) {
             allowNegative={false}
             thousandSeparator=" "
             decimalScale={0}
+            defaultValue={props.quotation.lineNumber}
           />
         </Grid>
         <Grid marginTop={2} width={500}>
@@ -54,13 +63,14 @@ export default function QuotationDialog(props: Props) {
             label="Tekst cytatu..."
             fullWidth
             multiline
+            defaultValue={props.quotation.text}
             onChange={(e) => setQuotationText(e.target.value)}
           />
         </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>
-        <Button onClick={newProject}>Utwórz</Button>
+        <Button onClick={onEditQuotation}>Zapisz</Button>
       </DialogActions>
     </Dialog>
   );

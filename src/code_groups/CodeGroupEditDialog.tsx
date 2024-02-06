@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useAppDispatch } from "../store";
 import { useState } from "react";
-import { createCodeGroup, editCodeGroup } from "./codeGroupSlice";
+import { editCodeGroup } from "./codeGroupSlice";
 import { CodeGroup } from "./codeGroupTypes";
 
 type Props = {

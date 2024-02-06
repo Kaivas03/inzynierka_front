@@ -30,10 +30,7 @@ export default function Interview() {
           <Grid container spacing={1} sx={{ marginTop: "1rem" }}>
             {quotationList.map((quotation, index) => (
               <Grid item xs={12}>
-                <QuotationCard
-                  lineNumber={quotation.lineNumber}
-                  text={quotation.text}
-                />
+                <QuotationCard quotation={quotation} />
               </Grid>
             ))}
           </Grid>

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../store";
 import { setCurrentInterviewId } from "./interviewsSlice";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import AddIcon from "@mui/icons-material/Add";
-import QuotationDialog from "./quotation/QuotationDialog";
+import QuotationCreateDialog from "./quotation/QuotationCreateDialog";
 import { useState } from "react";
 
 export default function CurrentInterviewBar() {
@@ -40,7 +40,7 @@ export default function CurrentInterviewBar() {
         >
           Dodaj Cytat
         </Button>
-        <QuotationDialog open={open} onClose={handleClose} />
+        <QuotationCreateDialog open={open} onClose={handleClose} />
       </Toolbar>
     </AppBar>
   );
