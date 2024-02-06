@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import "reactflow/dist/style.css";
 import ReactFlow, {
   Controls,
@@ -11,17 +11,22 @@ import ReactFlow, {
   applyNodeChanges,
   applyEdgeChanges,
   ReactFlowProvider,
+  Panel,
 } from "reactflow";
 import {
   fetchMindMap,
   makeNodePackageEmpty,
   setEdges,
   setNodes,
-} from "./store";
+  updatePositions,
+} from "./mindMapSlice";
 import MindMapNode from "./MindMapNode";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { useEffect } from "react";
 import { fetchHypothesisList, setNodeMoved } from "../hypothesisSlice";
+import { useDebounce } from "../../utils/hooks";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import CheckIcon from "@mui/icons-material/Check";
 
 const nodeTypes = {
   mindmap: MindMapNode,
@@ -30,7 +35,7 @@ const nodeTypes = {
 export function MindMap() {
   const { nodes, edges } = useAppSelector((store) => store.mindMapReducer);
   const dispatch = useAppDispatch();
-  const { currentHypothesisId } = useAppSelector(
+  const { currentHypothesisId, nodesMoved } = useAppSelector(
     (state) => state.hypothesisReducer
   );
   const { currentProjectId } = useAppSelector((state) => state.projectsReducer);
@@ -56,6 +61,14 @@ export function MindMap() {
     dispatch(setEdges(applyEdgeChanges(changes, edges)));
   };
 
+  useDebounce(
+    () => {
+      dispatch(updatePositions());
+    },
+    1500,
+    [nodes]
+  );
+
   useEffect(() => {
     dispatch(setNodeMoved(true));
     // eslint-disable-next-line
@@ -80,6 +93,15 @@ export function MindMap() {
           nodeTypes={nodeTypes}
           fitView
         >
+          <Panel position="top-right">
+            <Button
+              disabled
+              size="small"
+              startIcon={nodesMoved ? <AutorenewIcon /> : <CheckIcon />}
+            >
+              {nodesMoved ? "Aktualizowanie..." : "Zaktualizowano"}
+            </Button>
+          </Panel>
           <Controls />
           <MiniMap />
           <Background gap={12} size={1} />

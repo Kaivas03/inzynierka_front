@@ -7,21 +7,22 @@ import {
   TextField,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import SaveIcon from "@mui/icons-material/Save";
+// import SaveIcon from "@mui/icons-material/Save";
 import { useState } from "react";
 import HypothesisDialog from "./HypothesisDialog";
 import { useAppDispatch, useAppSelector } from "../store";
 import { HypothesisItem } from "./hypothesisTypes";
-import { updatePositions } from "./ReactFlow/store";
+// import { updatePositions } from "./ReactFlow/mindMapSlice";
 // import { useNavigateSok } from "../utils/hooks";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { setCurrentHypothesisId } from "./hypothesisSlice";
 
 export default function MindMapBar() {
   const [openn, setOpenn] = useState(false);
   // const navigate = useNavigateSok();
-  const { projectId } = useParams<{ projectId: string | undefined }>();
-  const { nodesMoved, hypothsesisList } = useAppSelector(
+  // const { projectId } = useParams<{ projectId: string | undefined }>();
+  // eslint-disable-next-line
+  const { nodesMoved, hypothsesisList, currentHypothesisId } = useAppSelector(
     (state) => state.hypothesisReducer
   );
   const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ export default function MindMapBar() {
           </Button>
           <HypothesisDialog open={openn} onClose={handleClose} />
         </Grid>
-        <Grid item margin={1}>
+        {/* <Grid item margin={1}>
           <Button
             variant="contained"
             startIcon={<SaveIcon />}
@@ -58,12 +59,13 @@ export default function MindMapBar() {
           >
             Zapisz pozycję
           </Button>
-        </Grid>
+        </Grid> */}
         <Grid item margin={1}>
           <FormControl size="small" sx={{ minWidth: 240 }}>
             <TextField
               select
               variant="standard"
+              defaultValue={currentHypothesisId}
               onChange={(e) =>
                 // navigate(`/${projectId}/mind-map/${e.target.value}`)
                 dispatch(setCurrentHypothesisId(parseInt(e.target.value)))

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "../../store";
-import { addChildNode, createQuestion } from "../ReactFlow/store";
+import { addChildNode, createQuestion } from "../ReactFlow/mindMapSlice";
 
 type Props = {
   id: string;

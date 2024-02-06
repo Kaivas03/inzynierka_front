@@ -5,7 +5,7 @@ import projectsReducer from "./projects/projectsSlice";
 import errorReducer from "./common/errors/errorSlice";
 import notyficationsReducer from "./common/notifycations/notifycationsSlice";
 import interviewReducer from "./interviews/interviewsSlice";
-import mindMapReducer from "./mind_map/ReactFlow/store";
+import mindMapReducer from "./mind_map/ReactFlow/mindMapSlice";
 import codesReducer from "./codes/codeSlice";
 import codeGroupsReducer from "./code_groups/codeGroupSlice";
 import quotationReducer from "./interviews/quotation/quotationSlice";

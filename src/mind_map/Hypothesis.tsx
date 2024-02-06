@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../store";
 import { fetchHypothesisList } from "./hypothesisSlice";
 import { MindMap } from "./ReactFlow/MindMap";
 import { ReactFlowProvider } from "reactflow";
-import { fetchMindMap, makeNodePackageEmpty } from "./ReactFlow/store";
+import { fetchMindMap, makeNodePackageEmpty } from "./ReactFlow/mindMapSlice";
 import { useParams } from "react-router-dom";
 
 export function Hypothesis() {

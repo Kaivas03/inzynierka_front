@@ -55,6 +55,19 @@ const hypothesisSlice = createSlice({
 const { setHypothesisList } = hypothesisSlice.actions;
 export const { setCurrentHypothesisId, setNodeMoved } = hypothesisSlice.actions;
 
+export const fetchHypothesisList =
+  (): AppThunk => async (dispatch, getState) => {
+    const projectId = getState().projectsReducer.currentProjectId;
+    const url = createUrl(`/hypothesis/all/${projectId}`);
+    const response = await fetchW(url, getRequestTemplate, dispatch);
+    if (response.ok) {
+      dispatch(setHypothesisList(await response.json()));
+    } else {
+      dispatch(setHypothesisList([]));
+      dispatch(notifyError("Błąd podczas pobierania hipotez."));
+    }
+  };
+
 export const createHypothesis =
   (hypothesisText: string | null): AppThunk =>
   async (dispatch, getState) => {
@@ -70,19 +83,6 @@ export const createHypothesis =
       dispatch(notifySuccess("Dodano nową hipotezę!"));
     } else {
       dispatch(notifyError("Podano złe dane hipotezy"));
-    }
-  };
-
-export const fetchHypothesisList =
-  (): AppThunk => async (dispatch, getState) => {
-    const projectId = getState().projectsReducer.currentProjectId;
-    const url = createUrl(`/hypothesis/all/${projectId}`);
-    const response = await fetchW(url, getRequestTemplate, dispatch);
-    if (response.ok) {
-      dispatch(setHypothesisList(await response.json()));
-    } else {
-      dispatch(setHypothesisList([]));
-      dispatch(notifyError("Błąd podczas pobierania hipotez."));
     }
   };
 

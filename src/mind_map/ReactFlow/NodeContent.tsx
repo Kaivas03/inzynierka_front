@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch } from "../../store";
-import { deleteQuestion } from "./store";
+import { deleteQuestion } from "./mindMapSlice";
 import { useState } from "react";
 import QuestionDialog from "../questions/QuestionDialog";
 import OptionsMenu from "../../utils/OptionsMenu";
@@ -27,6 +27,7 @@ export default function NodeContent(props: NodeData) {
   return (
     <Card sx={{ minWidth: 200, border: 1 }}>
       <CardHeader
+        title={<Typography>{props.text}</Typography>}
         action={
           <Grid container direction={"row"}>
             <Grid>
@@ -48,9 +49,7 @@ export default function NodeContent(props: NodeData) {
           </Grid>
         }
       />
-      <CardContent>
-        <Typography>{props.text}</Typography>
-      </CardContent>
+      <CardContent>{/* <Typography>{props.text}</Typography> */}</CardContent>
     </Card>
   );
 }
