@@ -10,6 +10,7 @@ export type NodeData = {
 function MindMapNode({ id, data, xPos, yPos }: NodeProps<NodeData>) {
   const { questionsList } = useAppSelector((state) => state.hypothesisReducer);
   const inputRef = useRef<HTMLInputElement>(null);
+  const question = questionsList.find((question) => question.id === Number(id));
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,7 +25,21 @@ function MindMapNode({ id, data, xPos, yPos }: NodeProps<NodeData>) {
         text={data.text}
         x={xPos}
         y={yPos}
-        question={questionsList.find((question) => question.id === Number(id))}
+        question={
+          question
+            ? question
+            : {
+                id: 0,
+                text: "",
+                questionId: 0,
+                posX: 0,
+                posY: 0,
+                codes: [],
+                codeGroups: [],
+                creationSignature: { createdAt: "" },
+                editionSignature: { editedAt: "" },
+              }
+        }
       />
 
       <Handle type="target" position={Position.Top} />

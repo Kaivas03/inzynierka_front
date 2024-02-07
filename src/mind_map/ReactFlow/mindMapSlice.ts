@@ -15,7 +15,11 @@ import {
   notifyError,
   notifySuccess,
 } from "../../common/notifycations/notifycationsSlice";
-import { fetchQuestionsList, setNodeMoved } from "../hypothesisSlice";
+import {
+  fetchHypothesisList,
+  fetchQuestionsList,
+  setNodeMoved,
+} from "../hypothesisSlice";
 
 export type RFState = {
   nodes: Node<NodeData>[];
@@ -93,7 +97,14 @@ export const fetchMindMap = (): AppThunk => async (dispatch, getState) => {
 };
 
 export const createQuestion =
-  (parendQuestionId: number, text: string, x: number, y: number): AppThunk =>
+  (
+    parendQuestionId: number,
+    text: string,
+    x: number,
+    y: number,
+    codes: number[],
+    groups: number[]
+  ): AppThunk =>
   async (dispatch) => {
     const url = createUrl(`/question/${parendQuestionId}`);
     const response = await fetchW(
@@ -102,6 +113,8 @@ export const createQuestion =
         text: text,
         posX: x,
         posY: y,
+        codeIds: codes,
+        codeGroupIds: groups,
       }),
       dispatch
     );
@@ -109,6 +122,35 @@ export const createQuestion =
       dispatch(fetchMindMap());
     } else {
       dispatch(notifyError("Błąd podczas tworzenia pytania."));
+    }
+  };
+
+export const editQuestion =
+  (
+    questionId: number,
+    text: string | null,
+    x: number,
+    y: number,
+    codes: number[],
+    groups: number[]
+  ): AppThunk =>
+  async (dispatch) => {
+    const url = createUrl(`/question/edit/${questionId}`);
+    const response = await fetchW(
+      url,
+      createPostRequest({
+        text: text,
+        posX: x,
+        posY: y,
+        codeIds: codes,
+        codeGroupIds: groups,
+      }),
+      dispatch
+    );
+    if (response.ok) {
+      dispatch(fetchMindMap());
+    } else {
+      dispatch(notifyError("Błąd podczas edycji pytania."));
     }
   };
 
@@ -124,6 +166,7 @@ export const updatePositions = (): AppThunk => async (dispatch, getState) => {
     dispatch
   );
   if (response.ok) {
+    dispatch(fetchQuestionsList());
     dispatch(setNodeMoved(false));
   } else {
     dispatch(notifyError("Błąd podczas aktualizacji pozycji."));
@@ -138,6 +181,7 @@ export const deleteQuestion =
     if (response.ok) {
       dispatch(fetchMindMap());
       dispatch(notifySuccess("Usunięto pytanie o id: " + id));
+      dispatch(fetchHypothesisList());
     } else {
       dispatch(notifyError("Nie udało się usunąć pytania"));
     }
