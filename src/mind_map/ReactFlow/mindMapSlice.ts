@@ -15,7 +15,7 @@ import {
   notifyError,
   notifySuccess,
 } from "../../common/notifycations/notifycationsSlice";
-import { setNodeMoved } from "../hypothesisSlice";
+import { fetchQuestionsList, setNodeMoved } from "../hypothesisSlice";
 
 export type RFState = {
   nodes: Node<NodeData>[];
@@ -85,6 +85,7 @@ export const fetchMindMap = (): AppThunk => async (dispatch, getState) => {
   const response = await fetchW(url, getRequestTemplate, dispatch);
   if (response.ok) {
     dispatch(setNodePackage(await response.json()));
+    dispatch(fetchQuestionsList());
   } else {
     dispatch(setNodePackage({ nodes: [], edges: [] }));
     dispatch(notifyError("Błąd podczas pobierania pytań."));

@@ -4,6 +4,7 @@ export interface Interview {
   id: number;
   name: string;
   text: string;
+  quotationAmount: number;
   creationSignature: CreationSignature;
   editionSignature: EditionSignature;
 }

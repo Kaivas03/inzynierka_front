@@ -1,11 +1,13 @@
 import {
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
@@ -19,6 +21,7 @@ import { useParams } from "react-router-dom";
 import OptionsMenu from "../utils/OptionsMenu";
 import InterviewEditDialog from "./InterviewEditDialog";
 import { Interview } from "./interviewsTypes";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 
 type Prop = { interview: Interview };
 
@@ -43,9 +46,14 @@ function MyTableRow(prop: Prop) {
       >
         <b>{prop.interview.name.toUpperCase()}</b>
       </TableCell>
-      <TableCell>ilość cytatów</TableCell>
-      <TableCell>ilość kodów</TableCell>
-      <TableCell>ilość grup kodów</TableCell>
+      <TableCell>
+        <Stack direction="row" alignItems="center" gap={1}>
+          <FormatQuoteIcon color="action" />
+          <Typography variant="body1">
+            {prop.interview.quotationAmount}
+          </Typography>
+        </Stack>
+      </TableCell>
       <TableCell>
         <OptionsMenu
           onDelete={() => dispatch(deleteInterview(prop.interview.id))}
@@ -79,8 +87,6 @@ export function InterviewTable() {
             <TableCell></TableCell>
             <TableCell>Tytuł</TableCell>
             <TableCell>Cytaty</TableCell>
-            <TableCell>Kody</TableCell>
-            <TableCell>Grupy Kodów</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>

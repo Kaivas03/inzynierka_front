@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Chip,
   Grid,
   IconButton,
   Typography,
@@ -12,12 +13,14 @@ import { deleteQuestion } from "./mindMapSlice";
 import { useState } from "react";
 import QuestionDialog from "../questions/QuestionDialog";
 import OptionsMenu from "../../utils/OptionsMenu";
+import { Question } from "../hypothesisTypes";
 
 type NodeData = {
   id: string;
   text: string;
   x: number;
   y: number;
+  question: Question | undefined;
 };
 
 export default function NodeContent(props: NodeData) {
@@ -49,7 +52,26 @@ export default function NodeContent(props: NodeData) {
           </Grid>
         }
       />
-      <CardContent>{/* <Typography>{props.text}</Typography> */}</CardContent>
+      <CardContent>
+        <Grid container direction={"column"}>
+          <Grid item marginBottom={2}>
+            <Typography>Kody:</Typography>
+            {props.question?.codes.map((code, index) => (
+              <Chip label={code.name} variant="outlined" onClick={() => {}} />
+            ))}
+          </Grid>
+          <Grid item>
+            <Typography>Grupy kodów:</Typography>
+            {props.question?.codeGroups.map((codeGroup, index) => (
+              <Chip
+                label={codeGroup.name}
+                variant="outlined"
+                onClick={() => {}}
+              />
+            ))}
+          </Grid>
+        </Grid>
+      </CardContent>
     </Card>
   );
 }

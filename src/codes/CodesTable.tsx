@@ -1,11 +1,13 @@
 import {
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
@@ -13,6 +15,7 @@ import { deleteCode, fetchCodeList } from "./codeSlice";
 import OptionsMenu from "../utils/OptionsMenu";
 import CodeEditDialog from "./CodeEditDialog";
 import { Code } from "./codeTypes";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 
 type Prop = { code: Code };
 
@@ -23,9 +26,15 @@ function MyRow(prop: Prop) {
   return (
     <TableRow>
       <TableCell></TableCell>
-      <TableCell>{prop.code.name}</TableCell>
-      <TableCell>ilość cytatów</TableCell>
-      <TableCell>ilość grup kodów</TableCell>
+      <TableCell sx={{ cursor: "pointer" }} onClick={() => setEditOpen(true)}>
+        {prop.code.name}
+      </TableCell>
+      <TableCell>
+        <Stack direction="row" alignItems="center" gap={1}>
+          <FormatQuoteIcon color="action" />
+          <Typography variant="body1">{prop.code.quotationAmount}</Typography>
+        </Stack>
+      </TableCell>
       <TableCell>
         <OptionsMenu
           onDelete={() => dispatch(deleteCode(prop.code.id))}
@@ -57,9 +66,8 @@ export function CodeTable() {
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
-            <TableCell>Tytuł</TableCell>
+            <TableCell>Nazwa</TableCell>
             <TableCell>Cytaty</TableCell>
-            <TableCell>Grupy Kodów</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>

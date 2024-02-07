@@ -1,11 +1,13 @@
 import {
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
@@ -13,6 +15,7 @@ import { deleteCodeGroup, fetchCodeGroups } from "./codeGroupSlice";
 import OptionsMenu from "../utils/OptionsMenu";
 import CodeGroupEditDialog from "./CodeGroupEditDialog";
 import { CodeGroup } from "./codeGroupTypes";
+import LoyaltyIcon from "@mui/icons-material/Loyalty";
 
 type Prop = { codeGroup: CodeGroup };
 
@@ -23,9 +26,15 @@ function MyRow(prop: Prop) {
   return (
     <TableRow>
       <TableCell></TableCell>
-      <TableCell>{prop.codeGroup.name}</TableCell>
-      <TableCell>ilość cytatów</TableCell>
-      <TableCell>ilość kodów</TableCell>
+      <TableCell sx={{ cursor: "pointer" }} onClick={() => setEditOpen(true)}>
+        {prop.codeGroup.name}
+      </TableCell>
+      <TableCell>
+        <Stack direction="row" alignItems="center" gap={1}>
+          <LoyaltyIcon color="action" />
+          <Typography variant="body1">{prop.codeGroup.codeAmount}</Typography>
+        </Stack>
+      </TableCell>
       <TableCell>
         <OptionsMenu
           onDelete={() => dispatch(deleteCodeGroup(prop.codeGroup.id))}
@@ -58,7 +67,6 @@ export function CodeGroupTable() {
           <TableRow>
             <TableCell></TableCell>
             <TableCell>Nazwa</TableCell>
-            <TableCell>Cytaty</TableCell>
             <TableCell>Kody</TableCell>
             <TableCell></TableCell>
           </TableRow>

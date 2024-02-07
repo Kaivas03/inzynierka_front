@@ -1,3 +1,5 @@
+import { CodeGroup } from "../code_groups/codeGroupTypes";
+import { Code } from "../codes/codeTypes";
 import { CreationSignature, EditionSignature } from "../common/commonTypes";
 
 export type Position = {
@@ -9,6 +11,18 @@ export interface HypothesisItem {
   id: number;
   text: string;
   questionId: number;
+  creationSignature: CreationSignature;
+  editionSignature: EditionSignature;
+}
+
+export interface Question {
+  id: number;
+  text: string;
+  questionId: number;
+  posX: number;
+  posY: number;
+  codes: Code[];
+  codeGroups: CodeGroup[];
   creationSignature: CreationSignature;
   editionSignature: EditionSignature;
 }

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { HypothesisItem, SokEdge, SokNode } from "./hypothesisTypes";
+import { HypothesisItem, Question, SokEdge, SokNode } from "./hypothesisTypes";
 import { AppThunk } from "../store";
 import {
   createPostRequest,
@@ -15,6 +15,7 @@ import {
 
 type HypothesisState = {
   hypothsesisList: HypothesisItem[];
+  questionsList: Question[];
   currentHypothesisId: number | undefined;
   nodePackage: { nodes: SokNode[]; edges: SokEdge[] };
   nodesMoved: boolean;
@@ -22,6 +23,7 @@ type HypothesisState = {
 
 const initialState: HypothesisState = {
   hypothsesisList: [],
+  questionsList: [],
   currentHypothesisId: undefined,
   nodePackage: { nodes: [], edges: [] },
   nodesMoved: false,
@@ -36,6 +38,9 @@ const hypothesisSlice = createSlice({
     },
     setHypothesisList: (state, action: PayloadAction<HypothesisItem[]>) => {
       state.hypothsesisList = action.payload;
+    },
+    setQuestionsList: (state, action: PayloadAction<Question[]>) => {
+      state.questionsList = action.payload;
     },
     setNodePackage: (
       state,
@@ -52,7 +57,7 @@ const hypothesisSlice = createSlice({
   },
 });
 
-const { setHypothesisList } = hypothesisSlice.actions;
+const { setHypothesisList, setQuestionsList } = hypothesisSlice.actions;
 export const { setCurrentHypothesisId, setNodeMoved } = hypothesisSlice.actions;
 
 export const fetchHypothesisList =
@@ -65,6 +70,19 @@ export const fetchHypothesisList =
     } else {
       dispatch(setHypothesisList([]));
       dispatch(notifyError("Błąd podczas pobierania hipotez."));
+    }
+  };
+
+export const fetchQuestionsList =
+  (): AppThunk => async (dispatch, getState) => {
+    const hypothesisId = getState().hypothesisReducer.currentHypothesisId;
+    const url = createUrl(`/question/all/${hypothesisId}`);
+    const response = await fetchW(url, getRequestTemplate, dispatch);
+    if (response.ok) {
+      dispatch(setQuestionsList(await response.json()));
+    } else {
+      dispatch(setQuestionsList([]));
+      dispatch(notifyError("Błąd podczas pobierania pytań."));
     }
   };
 
