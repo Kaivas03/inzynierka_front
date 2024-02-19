@@ -47,13 +47,13 @@ export const fetchQuotationList =
   };
 
 export const createQuotation =
-  (text: string | null, lineNumber: number | null): AppThunk =>
+  (text: string | null, lineNumber: number | null, codeId: any): AppThunk =>
   async (dispatch, getState) => {
     const currentInterviewId = getState().interviewReducer.currentInterviewId;
     const url = createUrl(`/quotation/${currentInterviewId}`);
     const response = await fetchW(
       url,
-      createPostRequest({ text: text, lineNumber: lineNumber }),
+      createPostRequest({ text: text, lineNumber: lineNumber, codeId }),
       dispatch
     );
     if (response.ok) {
@@ -65,12 +65,17 @@ export const createQuotation =
   };
 
 export const editQuotation =
-  (id: number, text: string | null, lineNumber: number | null): AppThunk =>
+  (
+    id: number,
+    text: string | null,
+    lineNumber: number | null,
+    codeId: any
+  ): AppThunk =>
   async (dispatch) => {
     const url = createUrl(`/quotation/edit/${id}`);
     const response = await fetchW(
       url,
-      createPostRequest({ text: text, lineNumber: lineNumber }),
+      createPostRequest({ text: text, lineNumber: lineNumber, codeId }),
       dispatch
     );
     if (response.ok) {

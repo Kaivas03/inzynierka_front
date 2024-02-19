@@ -32,7 +32,7 @@ export default function QuotationEditDialog(props: Props) {
     props.quotation.lineNumber
   );
   const onEditQuotation = () => {
-    dispatch(editQuotation(props.quotation.id, quotationText, lineNumber));
+    dispatch(editQuotation(props.quotation.id, quotationText, lineNumber, 0));
     props.onClose();
   };
   const handleValueChange = (values: NumberFormatValues, info: SourceInfo) => {

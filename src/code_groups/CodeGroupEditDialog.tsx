@@ -7,10 +7,13 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import { useAppDispatch } from "../store";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../store";
+import { useEffect, useState } from "react";
 import { editCodeGroup } from "./codeGroupSlice";
 import { CodeGroup } from "./codeGroupTypes";
+import CodeMultiSelect from "../utils/CodeMultiSelect";
+import { Code } from "../codes/codeTypes";
+import { fetchCodeList } from "../codes/codeSlice";
 
 type Props = {
   codeGroup: CodeGroup;
@@ -19,30 +22,54 @@ type Props = {
 };
 
 export default function CodeGroupEditDialog(props: Props) {
+  const { codeGroup, open, onClose } = props;
   const dispatch = useAppDispatch();
+  const { codesList } = useAppSelector((state) => state.codesReducer);
+  const [groupCodeIds, setGroupCodeIds] = useState<number[]>(
+    codeGroup.codes.map(({ id }) => id)
+  );
   const [codeGroupName, setCodeGroupName] = useState<string | null>(
-    props.codeGroup.name
+    codeGroup.name
   );
   const onEditCodeGroup = () => {
-    dispatch(editCodeGroup(props.codeGroup.id, codeGroupName));
-    props.onClose();
+    dispatch(editCodeGroup(codeGroup.id, codeGroupName, groupCodeIds));
+    onClose();
   };
 
+  useEffect(() => {
+    dispatch(fetchCodeList());
+    // eslint-disable-next-line
+  }, []);
+
   return (
-    <Dialog open={props.open}>
+    <Dialog open={open}>
       <DialogTitle>Edytuj grupę kodów</DialogTitle>
       <DialogContent>
         <Grid>
           <TextField
             label="Nazwa grupy..."
             variant="standard"
-            defaultValue={props.codeGroup.name}
+            defaultValue={codeGroup.name}
             onChange={(e) => setCodeGroupName(e.target.value)}
           />
         </Grid>
+        {false && (
+          <Grid>
+            <CodeMultiSelect
+              setSelectedCodes={(e: Code[]) =>
+                setGroupCodeIds(e.map(({ id }) => id))
+              }
+              textFieldVariant="outlined"
+              codes={codesList}
+              initialCodes={codeGroup.codes}
+              helperText="Dodaj kody"
+              error={false}
+            />
+          </Grid>
+        )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose}>Anuluj</Button>
+        <Button onClick={onClose}>Anuluj</Button>
         <Button onClick={onEditCodeGroup}>Zapisz</Button>
       </DialogActions>
     </Dialog>

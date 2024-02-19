@@ -53,16 +53,6 @@ export function Notifications() {
       TransitionComponent={Slide}
     >
       <Alert
-        sx={{
-          height: { md: "52px" },
-          minWidth: { md: "400px" },
-          display: "flex",
-          alignItems: "center",
-          borderRadius: "4px",
-          border: "1px solid",
-          fontSize: "14px",
-          fontWeight: 600,
-        }}
         onClose={handleAlertClose}
         severity={messageInfo ? messageInfo.severity : "info"}
       >

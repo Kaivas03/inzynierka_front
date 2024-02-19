@@ -15,6 +15,7 @@ import {
   NumericFormat,
   SourceInfo,
 } from "react-number-format";
+import CodeSingleSelect from "../../utils/CodeSingleSelect";
 
 type Props = {
   open: boolean;
@@ -26,9 +27,10 @@ export default function QuotationCreateDialog(props: Props) {
   const [quotationText, setQuotationText] = useState<string | null>("");
   const [lineNumber, setLineNumber] = useState<number | null>(null);
   const newQuotation = () => {
-    dispatch(createQuotation(quotationText, lineNumber));
+    dispatch(createQuotation(quotationText, lineNumber, codeId));
     props.onClose();
   };
+  const [codeId, setCodeId] = useState<number | undefined>(undefined);
   const handleValueChange = (values: NumberFormatValues, info: SourceInfo) => {
     const { value } = values;
     if (info.source === "event") setLineNumber(Number(value));
@@ -57,6 +59,10 @@ export default function QuotationCreateDialog(props: Props) {
             onChange={(e) => setQuotationText(e.target.value)}
           />
         </Grid>
+        <CodeSingleSelect
+          defaultCodeId={undefined}
+          setSelectedCodeId={(e: number | undefined) => setCodeId(e)}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>

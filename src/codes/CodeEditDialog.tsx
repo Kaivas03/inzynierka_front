@@ -11,6 +11,7 @@ import { useAppDispatch } from "../store";
 import { useState } from "react";
 import { editCode } from "./codeSlice";
 import { Code } from "./codeTypes";
+import CodeGroupSingleSelect from "../utils/CodeGroupSingleSelect";
 
 type Props = {
   code: Code;
@@ -19,10 +20,14 @@ type Props = {
 };
 
 export default function CodeEditDialog(props: Props) {
+  const { code } = props;
   const dispatch = useAppDispatch();
   const [codeName, setCodeName] = useState<string | null>(props.code.name);
+  const [codeGroupId, setCodeGroupId] = useState<number | undefined>(
+    code.codeGroupId
+  );
   const onEditCode = () => {
-    dispatch(editCode(props.code.id, codeName));
+    dispatch(editCode(props.code.id, codeName, codeGroupId));
     props.onClose();
   };
 
@@ -38,6 +43,10 @@ export default function CodeEditDialog(props: Props) {
             onChange={(e) => setCodeName(e.target.value)}
           />
         </Grid>
+        <CodeGroupSingleSelect
+          defaultCodeGroupId={code.codeGroupId}
+          setSelectedCodeGroupId={(e: number | undefined) => setCodeGroupId(e)}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>

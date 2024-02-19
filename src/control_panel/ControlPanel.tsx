@@ -39,7 +39,7 @@ export default function ControlPanel() {
             <MenuItem
               onClick={() => navigate(`/${currentProjectId}/interview`)}
             >
-              Wywiady
+              Teksty
             </MenuItem>
             <Divider />
             <MenuItem onClick={() => navigate(`/${currentProjectId}/codes`)}>

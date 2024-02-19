@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store";
 import QuotationCard from "./quotation/QuotationCard";
 import { useEffect } from "react";
@@ -20,9 +20,17 @@ export default function Interview() {
     <Grid container margin={1} direction={"row"} spacing={1}>
       <Grid item xs={9}>
         <Paper>
-          <Box component="main" sx={{ p: 3 }}>
-            <Typography>{currentInterviewText}</Typography>
-          </Box>
+          <TextField
+            defaultValue={currentInterviewText}
+            disabled
+            multiline
+            fullWidth
+            sx={{
+              "& .MuiInputBase-input.Mui-disabled": {
+                WebkitTextFillColor: "#000000",
+              },
+            }}
+          />
         </Paper>
       </Grid>
       <Grid item xs={3}>

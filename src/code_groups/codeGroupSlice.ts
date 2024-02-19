@@ -46,13 +46,13 @@ export const fetchCodeGroups = (): AppThunk => async (dispatch, getState) => {
 };
 
 export const createCodeGroup =
-  (codeGroupName: string | null): AppThunk =>
+  (codeGroupName: string | null, codeIds: number[]): AppThunk =>
   async (dispatch, getState) => {
     const currentProjectId = getState().projectsReducer.currentProjectId;
     const url = createUrl(`/code-group/${currentProjectId}`);
     const response = await fetchW(
       url,
-      createPostRequest({ name: codeGroupName }),
+      createPostRequest({ name: codeGroupName, codeIds }),
       dispatch
     );
     if (response.ok) {
@@ -64,12 +64,16 @@ export const createCodeGroup =
   };
 
 export const editCodeGroup =
-  (codeGroupId: number, codeGroupName: string | null): AppThunk =>
+  (
+    codeGroupId: number,
+    codeGroupName: string | null,
+    codeIds: number[]
+  ): AppThunk =>
   async (dispatch) => {
     const url = createUrl(`/code-group/edit/${codeGroupId}`);
     const response = await fetchW(
       url,
-      createPostRequest({ name: codeGroupName }),
+      createPostRequest({ name: codeGroupName, codeIds }),
       dispatch
     );
     if (response.ok) {

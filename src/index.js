@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import MainRouteMap from "./control_panel/MainRouteMap";
 import * as serviceWorker from "./serviceWorker.js";
 import { BrowserRouter } from "react-router-dom";

@@ -13,6 +13,8 @@ export interface Quotation {
   id: number;
   lineNumber: number;
   text: string;
+  codeId: number;
+  codeName: string;
   creationSignature: CreationSignature;
   editionSignature: EditionSignature;
 }
