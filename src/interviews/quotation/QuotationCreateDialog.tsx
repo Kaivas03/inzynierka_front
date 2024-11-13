@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Grid,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "../../store";
@@ -59,10 +60,15 @@ export default function QuotationCreateDialog(props: Props) {
             onChange={(e) => setQuotationText(e.target.value)}
           />
         </Grid>
-        <CodeSingleSelect
-          defaultCodeId={undefined}
-          setSelectedCodeId={(e: number | undefined) => setCodeId(e)}
-        />
+        <Grid container direction={"row"} marginTop={1}>
+          <Typography marginTop={1}>
+            <b>Dodaj kod:</b>
+          </Typography>
+          <CodeSingleSelect
+            defaultCodeId={undefined}
+            setSelectedCodeId={(e: number | undefined) => setCodeId(e)}
+          />
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>

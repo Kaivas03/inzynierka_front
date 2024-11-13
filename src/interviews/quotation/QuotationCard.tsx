@@ -103,10 +103,15 @@ export default function QuotationCard(props: Props) {
                 onChange={(e) => setQuotationText(e.target.value)}
               />
             </Grid>
-            <CodeSingleSelect
-              defaultCodeId={quotation.codeId}
-              setSelectedCodeId={(e: number | undefined) => setCodeId(e)}
-            />
+            <Grid container direction={"column"} marginTop={1}>
+              <Typography marginTop={1}>
+                <b>Dodaj kod:</b>
+              </Typography>
+              <CodeSingleSelect
+                defaultCodeId={quotation.codeId}
+                setSelectedCodeId={(e: number | undefined) => setCodeId(e)}
+              />
+            </Grid>
           </Grid>
         ) : (
           <Grid container direction={"column"}>

@@ -30,7 +30,9 @@ export default function CodeSingleSelect(props: Props) {
           onChange={(e) => setSelectedCodeId(parseInt(e.target.value))}
           fullWidth
         >
-          <MenuItem value={undefined}>-</MenuItem>
+          <MenuItem value={undefined}>
+            {codesList.length === 0 ? "Brak kodów" : "-"}
+          </MenuItem>
           {codesList?.map((code: Code, index) => (
             <MenuItem key={index} value={code.id}>
               {code.name}

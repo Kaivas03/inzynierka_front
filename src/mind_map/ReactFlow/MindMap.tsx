@@ -63,14 +63,14 @@ export function MindMap() {
 
   useDebounce(
     () => {
-      dispatch(updatePositions());
+      currentHypothesisId && dispatch(updatePositions());
     },
     1500,
     [nodes]
   );
 
   useEffect(() => {
-    dispatch(setNodeMoved(true));
+    currentHypothesisId && dispatch(setNodeMoved(true));
     // eslint-disable-next-line
   }, [nodes]);
 

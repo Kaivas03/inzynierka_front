@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Grid,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useAppDispatch } from "../store";
 import { useState } from "react";
@@ -37,10 +38,17 @@ export default function CodeCreateDialog(props: Props) {
             onChange={(e) => setCodeName(e.target.value)}
           />
         </Grid>
-        <CodeGroupSingleSelect
-          defaultCodeGroupId={undefined}
-          setSelectedCodeGroupId={(e: number | undefined) => setCodeGroupId(e)}
-        />
+        <Grid container direction={"column"} marginTop={1}>
+          <Typography marginTop={1}>
+            <b>Dodaj do grupy kodów:</b>
+          </Typography>
+          <CodeGroupSingleSelect
+            defaultCodeGroupId={undefined}
+            setSelectedCodeGroupId={(e: number | undefined) =>
+              setCodeGroupId(e)
+            }
+          />
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Anuluj</Button>

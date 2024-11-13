@@ -27,14 +27,7 @@ export type RFState = {
 };
 
 const initialState: RFState = {
-  nodes: [
-    // {
-    //   id: "root",
-    //   type: "mindmap",
-    //   data: { text: "Co robić gdy pada śnieg?" },
-    //   position: { x: 0, y: 0 },
-    // },
-  ],
+  nodes: [],
   edges: [],
 };
 
@@ -92,7 +85,7 @@ export const fetchMindMap = (): AppThunk => async (dispatch, getState) => {
     dispatch(fetchQuestionsList());
   } else {
     dispatch(setNodePackage({ nodes: [], edges: [] }));
-    dispatch(notifyError("Błąd podczas pobierania pytań."));
+    // dispatch(notifyError("Błąd podczas pobierania pytań."));
   }
 };
 

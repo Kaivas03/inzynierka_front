@@ -29,8 +29,11 @@ export default function CodeGroupSingleSelect(props: Props) {
           defaultValue={defaultCodeGroupId}
           onChange={(e) => setSelectedCodeGroupId(parseInt(e.target.value))}
           fullWidth
+          placeholder={codeGroupList.length === 0 ? "Brak grup kodów" : "-"}
         >
-          <MenuItem value={undefined}>-</MenuItem>
+          <MenuItem value={undefined}>
+            {codeGroupList.length === 0 ? "Brak grup kodów" : "-"}
+          </MenuItem>
           {codeGroupList?.map((code: CodeGroup, index) => (
             <MenuItem key={index} value={code.id}>
               {code.name}

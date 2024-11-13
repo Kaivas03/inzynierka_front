@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-// Hook do używania zamiast history.push - posiada opcję zachowania URLSearchParams
 export function useNavigateSok(preserveParams = false) {
   const location = useLocation();
   const navigate = useNavigate();

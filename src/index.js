@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import MainRouteMap from "./control_panel/MainRouteMap";
+// import MainRouteMap from "./control_panel/MainRouteMap";
 import * as serviceWorker from "./serviceWorker.js";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { Notifications } from "./common/notifycations/Notifycations";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-// import { ComingSoon } from "./mind_map/ReactFlow/ComingSoon";
+import { ComingSoon } from "./mind_map/ReactFlow/ComingSoon";
 
 const theme = createTheme({
   palette: {
@@ -24,8 +24,8 @@ root.render(
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <MainRouteMap />
-          {/* <ComingSoon /> */}
+          {/* <MainRouteMap /> */}
+          <ComingSoon />
           <Notifications />
         </ThemeProvider>
       </Provider>

@@ -13,7 +13,6 @@ type RequestTemplate = {
   body?: Object;
 };
 
-// from fetch wrapper
 export const fetchW = async (
   url: URL,
   request: Object,
@@ -22,14 +21,12 @@ export const fetchW = async (
   try {
     const response = await fetch(url, request);
     if (response.status === 401) {
-      //   dispatch(invalidateFrontSession()); --> trza dać błąd połączenia
     }
     if (response.status === 403) {
       dispatch(accessDeniedOpen());
       return response;
     }
     if (response.status === 500) {
-      //   dispatch(setHelpPageVisible()); --> trzeba coś dopisać
       dispatch(
         errorOccured({
           message: "Internal server  Error",
@@ -39,7 +36,6 @@ export const fetchW = async (
       return response;
     }
     if (response.status === 502) {
-      // dispatch(setHelpPageHidden()); --> trzeba coś dopisać
       dispatch(
         errorOccured({
           message: "Brak połączenia z serwerem",
@@ -51,7 +47,6 @@ export const fetchW = async (
       return response;
     }
   } catch (exception) {
-    // dispatch(setHelpPageHidden()); --> trzeba coś dopisać
     dispatch(
       errorOccured({
         message: "Brak połączenia z serwerem",
@@ -105,11 +100,9 @@ export const createDeleteRequest = (body: Object) => ({
   body: JSON.stringify(body),
 });
 
-// parametry w formacie {nazwa: wartość, nazwa2: wartość2}
 export const createUrl = (url: string, params?: Object | undefined) => {
   let urlWithParams = new URL(`${apiPrefix}${url}`, `${getApiDomainAdress()}`);
   if (params) {
-    // deleting undefined filters
     Object.keys(params).forEach(
       (key) =>
         params[key as keyof typeof params] === undefined &&

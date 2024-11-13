@@ -7,22 +7,15 @@ import {
   TextField,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-// import SaveIcon from "@mui/icons-material/Save";
 import { useState } from "react";
 import HypothesisDialog from "./HypothesisDialog";
 import { useAppDispatch, useAppSelector } from "../store";
 import { HypothesisItem } from "./hypothesisTypes";
-// import { updatePositions } from "./ReactFlow/mindMapSlice";
-// import { useNavigateSok } from "../utils/hooks";
-// import { useParams } from "react-router-dom";
 import { setCurrentHypothesisId } from "./hypothesisSlice";
 
 export default function MindMapBar() {
   const [openn, setOpenn] = useState(false);
-  // const navigate = useNavigateSok();
-  // const { projectId } = useParams<{ projectId: string | undefined }>();
-  // eslint-disable-next-line
-  const { nodesMoved, hypothsesisList, currentHypothesisId } = useAppSelector(
+  const { hypothsesisList, currentHypothesisId } = useAppSelector(
     (state) => state.hypothesisReducer
   );
   const dispatch = useAppDispatch();
@@ -49,17 +42,6 @@ export default function MindMapBar() {
           </Button>
           <HypothesisDialog open={openn} onClose={handleClose} />
         </Grid>
-        {/* <Grid item margin={1}>
-          <Button
-            variant="contained"
-            startIcon={<SaveIcon />}
-            size="small"
-            disabled={!nodesMoved}
-            onClick={() => dispatch(updatePositions())}
-          >
-            Zapisz pozycję
-          </Button>
-        </Grid> */}
         <Grid item margin={1}>
           <FormControl size="small" sx={{ minWidth: 240 }}>
             <TextField
@@ -67,12 +49,15 @@ export default function MindMapBar() {
               variant="standard"
               defaultValue={currentHypothesisId}
               onChange={(e) =>
-                // navigate(`/${projectId}/mind-map/${e.target.value}`)
                 dispatch(setCurrentHypothesisId(parseInt(e.target.value)))
               }
               fullWidth
             >
-              {/* <MenuItem value={undefined}>-</MenuItem> */}
+              {hypothsesisList.length === 0 && (
+                <MenuItem onClick={handleClickOpen}>
+                  Brak postawionych hipotez.
+                </MenuItem>
+              )}
               {hypothsesisList?.map((hypothesis: HypothesisItem, index) => (
                 <MenuItem key={index} value={hypothesis.id}>
                   {hypothesis.text}

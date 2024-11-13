@@ -82,7 +82,7 @@ export const fetchQuestionsList =
       dispatch(setQuestionsList(await response.json()));
     } else {
       dispatch(setQuestionsList([]));
-      dispatch(notifyError("Błąd podczas pobierania pytań."));
+      // dispatch(notifyError("Błąd podczas pobierania pytań."));
     }
   };
 
@@ -97,7 +97,9 @@ export const createHypothesis =
       dispatch
     );
     if (response.ok) {
+      // const data = await response.json();
       dispatch(fetchHypothesisList());
+      // dispatch(setCurrentHypothesisId(data.id));
       dispatch(notifySuccess("Dodano nową hipotezę!"));
     } else {
       dispatch(notifyError("Podano złe dane hipotezy"));
@@ -111,6 +113,7 @@ export const deleteHypothesis =
     const response = await fetchW(url, deleteRequestTemplate, dispatch);
     if (response.ok) {
       dispatch(fetchHypothesisList());
+      dispatch(setCurrentHypothesisId(undefined));
       dispatch(notifySuccess("Usunięto hipotezę o id: " + hypothesisId));
     } else {
       dispatch(notifyError("Nie udało się usunąć hipotezy"));
